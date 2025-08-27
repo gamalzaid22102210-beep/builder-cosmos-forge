@@ -16,6 +16,7 @@ export default function Index() {
     seconds: 0,
   });
   const [isArabic, setIsArabic] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -29,6 +30,15 @@ export default function Index() {
   const toggleLanguage = () => {
     setIsArabic(!isArabic);
   };
+
+  // Loading screen effect
+  useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); // Show loading for 2.5 seconds
+
+    return () => clearTimeout(loadingTimer);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -138,6 +148,39 @@ export default function Index() {
   );
 
   const labels = getCountdownLabels();
+
+  // Loading Screen
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black flex items-center justify-center relative overflow-hidden">
+        {/* Animated background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-egypt-gold rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-egypt-gold-light rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
+        </div>
+
+        <div className="text-center relative z-10">
+          {/* Loading spinner */}
+          <div className="mb-8">
+            <div className="text-6xl mb-4 animate-bounce">🚕</div>
+            <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
+          </div>
+
+          {/* Programmer credit */}
+          <div className="text-egypt-gold text-lg md:text-xl font-semibold tracking-wider animate-pulse">
+            PROGRAMMED BY MARWANZAID
+          </div>
+
+          {/* Loading dots */}
+          <div className="flex justify-center space-x-1 mt-6">
+            <div className="w-2 h-2 bg-egypt-gold rounded-full animate-bounce delay-0"></div>
+            <div className="w-2 h-2 bg-egypt-gold rounded-full animate-bounce delay-150"></div>
+            <div className="w-2 h-2 bg-egypt-gold rounded-full animate-bounce delay-300"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
