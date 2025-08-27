@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Instagram, Clock, Calendar } from "lucide-react";
 
 interface TimeLeft {
@@ -15,8 +15,42 @@ export default function Index() {
     minutes: 0,
     seconds: 0,
   });
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   const targetDate = new Date('2025-09-05T00:00:00').getTime();
+
+  // Create taxi sound effect
+  const playTaxiSound = () => {
+    if (!audioContextRef.current) {
+      try {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      } catch (e) {
+        console.log('Web Audio API not supported');
+        return;
+      }
+    }
+
+    const ctx = audioContextRef.current;
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    // Create car engine sound
+    oscillator.frequency.setValueAtTime(100, ctx.currentTime);
+    oscillator.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.3);
+    oscillator.frequency.linearRampToValueAtTime(120, ctx.currentTime + 0.6);
+
+    gainNode.gain.setValueAtTime(0, ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.1);
+    gainNode.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 0.4);
+    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+
+    oscillator.type = 'sawtooth';
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.8);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -37,6 +71,23 @@ export default function Index() {
 
     return () => clearInterval(timer);
   }, [targetDate]);
+
+  // Timer for taxi sound - plays every 8 seconds (matching animation duration)
+  useEffect(() => {
+    // Initial delay of 1 second (matching animation delay)
+    const initialTimeout = setTimeout(() => {
+      playTaxiSound();
+
+      // Then repeat every 8 seconds
+      const soundInterval = setInterval(() => {
+        playTaxiSound();
+      }, 8000);
+
+      return () => clearInterval(soundInterval);
+    }, 1000);
+
+    return () => clearTimeout(initialTimeout);
+  }, []);
 
   const SocialIcon = ({ href, icon: Icon, label }: { href: string; icon: any; label: string }) => (
     <a
