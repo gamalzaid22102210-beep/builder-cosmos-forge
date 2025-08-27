@@ -23,8 +23,6 @@ export default function Index() {
       timestamp: number;
     }>
   >([]);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [lastScrollX, setLastScrollX] = useState(0);
 
   const targetDate = new Date("2025-09-05T00:00:00").getTime();
 
