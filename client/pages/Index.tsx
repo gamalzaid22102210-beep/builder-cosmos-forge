@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import { Instagram, Clock, Calendar } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Instagram, Languages } from "lucide-react";
 
 interface TimeLeft {
   days: number;
@@ -15,46 +15,12 @@ export default function Index() {
     minutes: 0,
     seconds: 0,
   });
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const [isArabic, setIsArabic] = useState(false);
 
   const targetDate = new Date('2025-09-05T00:00:00').getTime();
 
-  // Create taxi horn sound effect
-  const playTaxiSound = () => {
-    if (!audioContextRef.current) {
-      try {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      } catch (e) {
-        console.log('Web Audio API not supported');
-        return;
-      }
-    }
-
-    const ctx = audioContextRef.current;
-
-    // Create two-tone horn sound (beep beep)
-    const createBeep = (startTime: number, frequency: number, duration: number) => {
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      oscillator.frequency.setValueAtTime(frequency, startTime);
-      oscillator.type = 'square';
-
-      gainNode.gain.setValueAtTime(0, startTime);
-      gainNode.gain.linearRampToValueAtTime(0.15, startTime + 0.05);
-      gainNode.gain.linearRampToValueAtTime(0.15, startTime + duration - 0.05);
-      gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
-
-      oscillator.start(startTime);
-      oscillator.stop(startTime + duration);
-    };
-
-    // Double beep: beep beep
-    createBeep(ctx.currentTime, 800, 0.2);        // First beep
-    createBeep(ctx.currentTime + 0.3, 600, 0.2);  // Second beep (lower tone)
+  const toggleLanguage = () => {
+    setIsArabic(!isArabic);
   };
 
   useEffect(() => {
@@ -77,22 +43,6 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Timer for taxi sound - plays every 4 seconds (matching animation duration)
-  useEffect(() => {
-    // Initial delay of 1 second (matching animation delay)
-    const initialTimeout = setTimeout(() => {
-      playTaxiSound();
-
-      // Then repeat every 4 seconds
-      const soundInterval = setInterval(() => {
-        playTaxiSound();
-      }, 4000);
-
-      return () => clearInterval(soundInterval);
-    }, 1000);
-
-    return () => clearTimeout(initialTimeout);
-  }, []);
 
   const SocialIcon = ({ href, icon: Icon, label }: { href: string; icon: any; label: string }) => (
     <a
@@ -113,19 +63,47 @@ export default function Index() {
     </svg>
   );
 
+  const getCountdownLabels = () => {
+    if (isArabic) {
+      return {
+        days: 'أيام',
+        hours: 'ساعات',
+        minutes: 'دقائق',
+        seconds: 'ثواني'
+      };
+    }
+    return {
+      days: 'DAYS',
+      hours: 'HOURS',
+      minutes: 'MINUTES',
+      seconds: 'SECONDS'
+    };
+  };
+
   const CountdownBox = ({ value, label }: { value: number; label: string }) => (
     <div className="bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-sm border border-egypt-gold/30 rounded-2xl p-6 shadow-2xl">
       <div className="text-4xl md:text-6xl font-bold text-egypt-gold mb-2 font-mono">
         {value.toString().padStart(2, '0')}
       </div>
-      <div className="text-egypt-sand text-sm md:text-base font-semibold uppercase tracking-wider">
+      <div className={`text-egypt-sand text-sm md:text-base font-semibold uppercase tracking-wider ${isArabic ? 'text-right' : ''}`}>
         {label}
       </div>
     </div>
   );
 
+  const labels = getCountdownLabels();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
+      {/* Language Toggle Button */}
+      <button
+        onClick={toggleLanguage}
+        className="fixed top-6 right-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+        aria-label={isArabic ? "Switch to English" : "التبديل للعربية"}
+      >
+        <Languages className="w-5 h-5" />
+      </button>
+
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 bg-egypt-gold rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -152,10 +130,10 @@ export default function Index() {
         <div className="mb-16">
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <CountdownBox value={timeLeft.days} label="DAYS" />
-            <CountdownBox value={timeLeft.hours} label="HOURS" />
-            <CountdownBox value={timeLeft.minutes} label="MINUTES" />
-            <CountdownBox value={timeLeft.seconds} label="SECONDS" />
+            <CountdownBox value={timeLeft.days} label={labels.days} />
+            <CountdownBox value={timeLeft.hours} label={labels.hours} />
+            <CountdownBox value={timeLeft.minutes} label={labels.minutes} />
+            <CountdownBox value={timeLeft.seconds} label={labels.seconds} />
           </div>
         </div>
 
@@ -176,15 +154,18 @@ export default function Index() {
 
       {/* Footer */}
       <footer className="relative z-10 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm border-t border-egypt-gold/20 py-8">
-        <div className="text-center text-egypt-sand/80 space-y-2">
+        <div className={`text-center text-egypt-sand/80 space-y-2 ${isArabic ? 'rtl' : 'ltr'}`}>
           <p className="text-sm md:text-base font-semibold">
-            الحقوق محفوظة ل <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+            {isArabic
+              ? <>الحقوق محفوظة ل <span className="text-egypt-gold font-bold">MARWAN ZAID</span></>
+              : <>All rights reserved to <span className="text-egypt-gold font-bold">MARWAN ZAID</span></>
+            }
           </p>
           <p className="text-sm md:text-base">
-            صنع بكل حب ❤️
+            {isArabic ? 'صنع بكل حب ❤️' : 'Made with love ❤️'}
           </p>
           <p className="text-xs md:text-sm text-egypt-sand/60">
-            © 2025 جميع الحقوق محفوظة
+            {isArabic ? '© 2025 جميع الحقوق محفوظة' : '© 2025 All rights reserved'}
           </p>
         </div>
       </footer>
