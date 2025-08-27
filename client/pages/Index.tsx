@@ -18,6 +18,7 @@ export default function Index() {
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
+  const [audioStarted, setAudioStarted] = useState(false);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -55,6 +56,39 @@ export default function Index() {
 
     return () => clearTimeout(loadingTimer);
   }, []);
+
+  // Auto-start audio after user interaction
+  useEffect(() => {
+    const startAudio = () => {
+      if (!audioStarted) {
+        setAudioStarted(true);
+        // Enable iframe after user interaction
+        const iframe = document.querySelector('iframe[title="Background Music"]') as HTMLIFrameElement;
+        if (iframe) {
+          iframe.src = iframe.src; // Restart to trigger autoplay after user interaction
+        }
+      }
+    };
+
+    // Listen for any user interaction
+    const handleInteraction = () => {
+      startAudio();
+      // Remove listeners after first interaction
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+  }, [audioStarted]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -203,12 +237,19 @@ export default function Index() {
       {/* Background Music - Audio Only (1:50-2:30) */}
       <iframe
         className="hidden"
-        src="https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&start=110&end=150&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
+        src={audioStarted ? "https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&start=110&end=150&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1" : ""}
         allow="autoplay; encrypted-media"
         allowFullScreen
         title="Background Music"
         style={{ width: '1px', height: '1px', position: 'absolute', opacity: 0 }}
       ></iframe>
+
+      {/* Audio prompt */}
+      {!audioStarted && (
+        <div className="fixed bottom-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black px-4 py-2 rounded-full shadow-lg animate-pulse">
+          <span className="text-sm font-semibold">🎵 Click anywhere to start music</span>
+        </div>
+      )}
 
       {/* Control Buttons */}
       <div className="fixed top-6 right-6 z-50 flex gap-3">
