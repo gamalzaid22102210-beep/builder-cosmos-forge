@@ -16,15 +16,17 @@ export default function Index() {
     seconds: 0,
   });
   const [isArabic, setIsArabic] = useState(false);
-  const [scrollTaxis, setScrollTaxis] = useState<Array<{
-    id: number;
-    direction: 'left' | 'right';
-    timestamp: number;
-  }>>([]);
+  const [scrollTaxis, setScrollTaxis] = useState<
+    Array<{
+      id: number;
+      direction: "left" | "right";
+      timestamp: number;
+    }>
+  >([]);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [lastScrollX, setLastScrollX] = useState(0);
 
-  const targetDate = new Date('2025-09-05T00:00:00').getTime();
+  const targetDate = new Date("2025-09-05T00:00:00").getTime();
 
   const toggleLanguage = () => {
     setIsArabic(!isArabic);
@@ -38,7 +40,9 @@ export default function Index() {
       if (distance > 0) {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -61,31 +65,33 @@ export default function Index() {
       // Only trigger if scrolling down significantly
       if (currentScrollY > lastScrollY + 50) {
         // Determine horizontal scroll direction (taxi comes from opposite side)
-        let direction: 'left' | 'right' = 'right';
+        let direction: "left" | "right" = "right";
 
         if (currentScrollX > lastScrollX) {
           // Scrolling right, taxi comes from left side
-          direction = 'left';
+          direction = "left";
         } else if (currentScrollX < lastScrollX) {
           // Scrolling left, taxi comes from right side
-          direction = 'right';
+          direction = "right";
         } else {
           // No horizontal scroll, alternate direction
-          direction = scrollTaxis.length % 2 === 0 ? 'right' : 'left';
+          direction = scrollTaxis.length % 2 === 0 ? "right" : "left";
         }
 
         // Create new taxi
         const newTaxi = {
           id: Date.now(),
           direction,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
 
-        setScrollTaxis(prev => [...prev, newTaxi]);
+        setScrollTaxis((prev) => [...prev, newTaxi]);
 
         // Remove taxi after animation completes
         setTimeout(() => {
-          setScrollTaxis(prev => prev.filter(taxi => taxi.id !== newTaxi.id));
+          setScrollTaxis((prev) =>
+            prev.filter((taxi) => taxi.id !== newTaxi.id),
+          );
         }, 3000);
       }
 
@@ -99,15 +105,22 @@ export default function Index() {
       scrollTimeout = setTimeout(handleScroll, 100);
     };
 
-    window.addEventListener('scroll', throttledScroll);
+    window.addEventListener("scroll", throttledScroll);
     return () => {
-      window.removeEventListener('scroll', throttledScroll);
+      window.removeEventListener("scroll", throttledScroll);
       clearTimeout(scrollTimeout);
     };
   }, [lastScrollY, lastScrollX, scrollTaxis.length]);
 
-
-  const SocialIcon = ({ href, icon: Icon, label }: { href: string; icon: any; label: string }) => (
+  const SocialIcon = ({
+    href,
+    icon: Icon,
+    label,
+  }: {
+    href: string;
+    icon: any;
+    label: string;
+  }) => (
     <a
       href={href}
       target="_blank"
@@ -122,33 +135,35 @@ export default function Index() {
 
   const TikTokIcon = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5.76 20.5a6.34 6.34 0 0 0 10.86-4.43V7.83a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.8-.26z"/>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5.76 20.5a6.34 6.34 0 0 0 10.86-4.43V7.83a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.8-.26z" />
     </svg>
   );
 
   const getCountdownLabels = () => {
     if (isArabic) {
       return {
-        days: 'أيام',
-        hours: 'ساعات',
-        minutes: 'دق��ئق',
-        seconds: 'ثواني'
+        days: "أيام",
+        hours: "ساعات",
+        minutes: "دق��ئق",
+        seconds: "ثواني",
       };
     }
     return {
-      days: 'DAYS',
-      hours: 'HOURS',
-      minutes: 'MINUTES',
-      seconds: 'SECONDS'
+      days: "DAYS",
+      hours: "HOURS",
+      minutes: "MINUTES",
+      seconds: "SECONDS",
     };
   };
 
   const CountdownBox = ({ value, label }: { value: number; label: string }) => (
     <div className="bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-sm border border-egypt-gold/30 rounded-2xl p-6 shadow-2xl">
       <div className="text-4xl md:text-6xl font-bold text-egypt-gold mb-2 font-mono">
-        {value.toString().padStart(2, '0')}
+        {value.toString().padStart(2, "0")}
       </div>
-      <div className={`text-egypt-sand text-sm md:text-base font-semibold uppercase tracking-wider ${isArabic ? 'text-right' : ''}`}>
+      <div
+        className={`text-egypt-sand text-sm md:text-base font-semibold uppercase tracking-wider ${isArabic ? "text-right" : ""}`}
+      >
         {label}
       </div>
     </div>
@@ -172,11 +187,13 @@ export default function Index() {
         <div
           key={taxi.id}
           className={`fixed text-4xl z-40 animate-taxi-fall ${
-            taxi.direction === 'left' ? 'animate-taxi-fall-from-left' : 'animate-taxi-fall-from-right'
+            taxi.direction === "left"
+              ? "animate-taxi-fall-from-left"
+              : "animate-taxi-fall-from-right"
           }`}
           style={{
-            left: taxi.direction === 'left' ? '10%' : '85%',
-            top: '-100px'
+            left: taxi.direction === "left" ? "10%" : "85%",
+            top: "-100px",
           }}
         >
           🚕
@@ -207,7 +224,6 @@ export default function Index() {
 
         {/* Countdown Timer */}
         <div className="mb-16">
-          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <CountdownBox value={timeLeft.days} label={labels.days} />
             <CountdownBox value={timeLeft.hours} label={labels.hours} />
@@ -233,22 +249,32 @@ export default function Index() {
 
       {/* Footer */}
       <footer className="relative z-10 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm border-t border-egypt-gold/20 py-8">
-        <div className={`text-center text-egypt-sand/80 space-y-2 ${isArabic ? 'rtl' : 'ltr'}`}>
+        <div
+          className={`text-center text-egypt-sand/80 space-y-2 ${isArabic ? "rtl" : "ltr"}`}
+        >
           <p className="text-sm md:text-base font-semibold">
-            {isArabic
-              ? <>الحقوق محفوظة ل <span className="text-egypt-gold font-bold">MARWAN ZAID</span></>
-              : <>All rights reserved to <span className="text-egypt-gold font-bold">MARWAN ZAID</span></>
-            }
+            {isArabic ? (
+              <>
+                الحقوق محفوظة ل{" "}
+                <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+              </>
+            ) : (
+              <>
+                All rights reserved to{" "}
+                <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+              </>
+            )}
           </p>
           <p className="text-sm md:text-base">
-            {isArabic ? 'صنع بكل حب ❤️' : 'Made with love ❤️'}
+            {isArabic ? "صنع بكل حب ❤️" : "Made with love ❤️"}
           </p>
           <p className="text-xs md:text-sm text-egypt-sand/60">
-            {isArabic ? '© 2025 جميع الحقوق محفوظة' : '© 2025 All rights reserved'}
+            {isArabic
+              ? "© 2025 جميع الحقوق محفوظة"
+              : "© 2025 All rights reserved"}
           </p>
         </div>
       </footer>
-
     </div>
   );
 }
