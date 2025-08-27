@@ -68,27 +68,27 @@ export default function Index() {
 
     const autoTaxiInterval = setInterval(() => {
       // Alternate direction: even numbers from right, odd numbers from left
-      const direction: 'left' | 'right' = taxiCounter % 2 === 0 ? 'right' : 'left';
+      const direction: "left" | "right" =
+        taxiCounter % 2 === 0 ? "right" : "left";
       taxiCounter++;
 
       // Create new taxi
       const newTaxi = {
         id: Date.now() + Math.random(),
         direction,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
-      setScrollTaxis(prev => [...prev, newTaxi]);
+      setScrollTaxis((prev) => [...prev, newTaxi]);
 
       // Remove taxi after animation completes
       setTimeout(() => {
-        setScrollTaxis(prev => prev.filter(taxi => taxi.id !== newTaxi.id));
+        setScrollTaxis((prev) => prev.filter((taxi) => taxi.id !== newTaxi.id));
       }, 3000);
     }, 1000); // Every 1 second
 
     return () => clearInterval(autoTaxiInterval);
   }, []); // Empty dependency array to run only once
-
 
   const SocialIcon = ({
     href,
