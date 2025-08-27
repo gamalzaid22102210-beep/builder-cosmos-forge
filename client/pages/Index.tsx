@@ -84,7 +84,7 @@ export default function Index() {
           <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent mb-4 tracking-tight">
             EGYPTIAN ADVENTURE
           </h1>
-          <div className="text-6xl md:text-8xl mb-8 animate-bounce">
+          <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
             🚕
           </div>
           <div className="text-2xl md:text-4xl font-bold text-egypt-sand mb-12 tracking-widest">

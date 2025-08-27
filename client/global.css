@@ -125,4 +125,58 @@
   .animate-fade-in {
     animation: fade-in 1s ease-out;
   }
+
+  @keyframes taxi-drive {
+    0% {
+      transform: translateX(120vw) translateY(0px) rotate(0deg);
+    }
+    15% {
+      transform: translateX(100vw) translateY(-5px) rotate(-1deg);
+    }
+    30% {
+      transform: translateX(70vw) translateY(0px) rotate(0deg);
+    }
+    45% {
+      transform: translateX(40vw) translateY(-3px) rotate(1deg);
+    }
+    60% {
+      transform: translateX(20vw) translateY(0px) rotate(0deg);
+    }
+    75% {
+      transform: translateX(0vw) translateY(-2px) rotate(-0.5deg);
+    }
+    100% {
+      transform: translateX(-120vw) translateY(0px) rotate(0deg);
+    }
+  }
+
+  .animate-taxi-drive {
+    animation: taxi-drive 8s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  @keyframes taxi-drive-mobile {
+    0% {
+      transform: translateX(150vw) translateY(0px) scale(0.8);
+    }
+    25% {
+      transform: translateX(100vw) translateY(-3px) scale(0.8);
+    }
+    50% {
+      transform: translateX(50vw) translateY(0px) scale(0.8);
+    }
+    75% {
+      transform: translateX(0vw) translateY(-2px) scale(0.8);
+    }
+    100% {
+      transform: translateX(-150vw) translateY(0px) scale(0.8);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .animate-taxi-drive {
+      animation: taxi-drive-mobile 6s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+  }
 }
