@@ -77,16 +77,16 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Timer for taxi sound - plays every 8 seconds (matching animation duration)
+  // Timer for taxi sound - plays every 4 seconds (matching animation duration)
   useEffect(() => {
     // Initial delay of 1 second (matching animation delay)
     const initialTimeout = setTimeout(() => {
       playTaxiSound();
 
-      // Then repeat every 8 seconds
+      // Then repeat every 4 seconds
       const soundInterval = setInterval(() => {
         playTaxiSound();
-      }, 8000);
+      }, 4000);
 
       return () => clearInterval(soundInterval);
     }, 1000);
