@@ -130,38 +130,29 @@
     0% {
       transform: translateX(120vw) translateY(0px) rotate(0deg);
     }
-    10% {
+    15% {
       transform: translateX(80vw) translateY(-3px) rotate(-1deg);
-    }
-    20% {
-      transform: translateX(40vw) translateY(0px) rotate(0deg);
     }
     30% {
-      transform: translateX(0vw) translateY(-2px) rotate(1deg);
-    }
-    40% {
-      transform: translateX(-40vw) translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateX(-80vw) translateY(-3px) rotate(-0.5deg);
-    }
-    60% {
-      transform: translateX(-120vw) translateY(0px) rotate(0deg);
-    }
-    65% {
-      transform: translateX(120vw) translateY(0px) rotate(0deg);
-    }
-    75% {
-      transform: translateX(80vw) translateY(-3px) rotate(-1deg);
-    }
-    85% {
       transform: translateX(40vw) translateY(0px) rotate(0deg);
     }
-    95% {
+    45% {
       transform: translateX(0vw) translateY(-2px) rotate(1deg);
     }
+    60% {
+      transform: translateX(-40vw) translateY(0px) rotate(0deg);
+    }
+    75% {
+      transform: translateX(-80vw) translateY(-3px) rotate(-0.5deg);
+    }
+    90% {
+      transform: translateX(-120vw) translateY(0px) rotate(0deg);
+    }
+    90.1% {
+      transform: translateX(120vw) translateY(0px) rotate(0deg);
+    }
     100% {
-      transform: translateX(0vw) translateY(0px) rotate(0deg);
+      transform: translateX(120vw) translateY(0px) rotate(0deg);
     }
   }
 
@@ -174,29 +165,26 @@
     0% {
       transform: translateX(150vw) translateY(0px) scale(0.8);
     }
-    15% {
+    20% {
       transform: translateX(100vw) translateY(-2px) scale(0.8);
     }
-    30% {
+    40% {
       transform: translateX(50vw) translateY(0px) scale(0.8);
-    }
-    45% {
-      transform: translateX(0vw) translateY(-3px) scale(0.8);
     }
     60% {
-      transform: translateX(-50vw) translateY(0px) scale(0.8);
-    }
-    75% {
-      transform: translateX(-150vw) translateY(0px) scale(0.8);
+      transform: translateX(0vw) translateY(-3px) scale(0.8);
     }
     80% {
-      transform: translateX(150vw) translateY(0px) scale(0.8);
+      transform: translateX(-50vw) translateY(0px) scale(0.8);
     }
     90% {
-      transform: translateX(100vw) translateY(-2px) scale(0.8);
+      transform: translateX(-150vw) translateY(0px) scale(0.8);
+    }
+    90.1% {
+      transform: translateX(150vw) translateY(0px) scale(0.8);
     }
     100% {
-      transform: translateX(50vw) translateY(0px) scale(0.8);
+      transform: translateX(150vw) translateY(0px) scale(0.8);
     }
   }
 
