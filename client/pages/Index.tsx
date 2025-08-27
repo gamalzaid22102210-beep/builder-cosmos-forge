@@ -19,7 +19,7 @@ export default function Index() {
 
   const targetDate = new Date('2025-09-05T00:00:00').getTime();
 
-  // Create taxi sound effect
+  // Create taxi horn sound effect
   const playTaxiSound = () => {
     if (!audioContextRef.current) {
       try {
@@ -31,25 +31,30 @@ export default function Index() {
     }
 
     const ctx = audioContextRef.current;
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
 
-    oscillator.connect(gainNode);
-    gainNode.connect(ctx.destination);
+    // Create two-tone horn sound (beep beep)
+    const createBeep = (startTime: number, frequency: number, duration: number) => {
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
 
-    // Create car engine sound
-    oscillator.frequency.setValueAtTime(100, ctx.currentTime);
-    oscillator.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.3);
-    oscillator.frequency.linearRampToValueAtTime(120, ctx.currentTime + 0.6);
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
 
-    gainNode.gain.setValueAtTime(0, ctx.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.1);
-    gainNode.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 0.4);
-    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      oscillator.frequency.setValueAtTime(frequency, startTime);
+      oscillator.type = 'square';
 
-    oscillator.type = 'sawtooth';
-    oscillator.start(ctx.currentTime);
-    oscillator.stop(ctx.currentTime + 0.8);
+      gainNode.gain.setValueAtTime(0, startTime);
+      gainNode.gain.linearRampToValueAtTime(0.15, startTime + 0.05);
+      gainNode.gain.linearRampToValueAtTime(0.15, startTime + duration - 0.05);
+      gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
+
+      oscillator.start(startTime);
+      oscillator.stop(startTime + duration);
+    };
+
+    // Double beep: beep beep
+    createBeep(ctx.currentTime, 800, 0.2);        // First beep
+    createBeep(ctx.currentTime + 0.3, 600, 0.2);  // Second beep (lower tone)
   };
 
   useEffect(() => {
@@ -138,8 +143,9 @@ export default function Index() {
           <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
             🚕
           </div>
-          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest animate-rainbow-3d">
-            WAIT US ON SEPTEMBER 5
+          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest">
+            <span className="animate-rainbow-3d">WAIT US</span>
+            <span className="text-egypt-sand"> ON SEPTEMBER 5</span>
           </div>
         </div>
 
