@@ -161,6 +161,48 @@
     animation-delay: 1s;
   }
 
+  @keyframes taxi-fall-left {
+    0% {
+      transform: translateY(-100px) translateX(0px) rotate(45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) translateX(-50px) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes taxi-fall-right {
+    0% {
+      transform: translateY(-100px) translateX(0px) rotate(-45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) translateX(50px) rotate(-45deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-taxi-fall-left {
+    animation: taxi-fall-left 3s ease-in forwards;
+  }
+
+  .animate-taxi-fall-right {
+    animation: taxi-fall-right 3s ease-in forwards;
+  }
+
   @keyframes taxi-drive-mobile {
     0% {
       transform: translateX(150vw) translateY(0px) scale(0.8);

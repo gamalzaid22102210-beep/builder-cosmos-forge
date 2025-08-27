@@ -16,6 +16,13 @@ export default function Index() {
     seconds: 0,
   });
   const [isArabic, setIsArabic] = useState(false);
+  const [scrollTaxis, setScrollTaxis] = useState<Array<{
+    id: number;
+    direction: 'left' | 'right';
+    timestamp: number;
+  }>>([]);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [lastScrollX, setLastScrollX] = useState(0);
 
   const targetDate = new Date('2025-09-05T00:00:00').getTime();
 
@@ -42,6 +49,62 @@ export default function Index() {
 
     return () => clearInterval(timer);
   }, [targetDate]);
+
+  // Scroll taxi effect
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const currentScrollX = window.scrollX;
+
+      // Only trigger if scrolling down significantly
+      if (currentScrollY > lastScrollY + 50) {
+        // Determine horizontal scroll direction
+        let direction: 'left' | 'right' = 'right';
+
+        if (currentScrollX > lastScrollX) {
+          // Scrolling right, taxi comes from left
+          direction = 'left';
+        } else if (currentScrollX < lastScrollX) {
+          // Scrolling left, taxi comes from right
+          direction = 'right';
+        } else {
+          // No horizontal scroll, alternate direction
+          direction = scrollTaxis.length % 2 === 0 ? 'left' : 'right';
+        }
+
+        // Create new taxi
+        const newTaxi = {
+          id: Date.now(),
+          direction,
+          timestamp: Date.now()
+        };
+
+        setScrollTaxis(prev => [...prev, newTaxi]);
+
+        // Remove taxi after animation completes
+        setTimeout(() => {
+          setScrollTaxis(prev => prev.filter(taxi => taxi.id !== newTaxi.id));
+        }, 3000);
+      }
+
+      setLastScrollY(currentScrollY);
+      setLastScrollX(currentScrollX);
+    };
+
+    // Throttle scroll events
+    const throttledScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScroll, 100);
+    };
+
+    window.addEventListener('scroll', throttledScroll);
+    return () => {
+      window.removeEventListener('scroll', throttledScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [lastScrollY, lastScrollX, scrollTaxis.length]);
 
 
   const SocialIcon = ({ href, icon: Icon, label }: { href: string; icon: any; label: string }) => (
@@ -103,6 +166,22 @@ export default function Index() {
       >
         <Languages className="w-5 h-5" />
       </button>
+
+      {/* Scroll Taxis */}
+      {scrollTaxis.map((taxi) => (
+        <div
+          key={taxi.id}
+          className={`fixed text-4xl z-40 animate-taxi-fall ${
+            taxi.direction === 'left' ? 'animate-taxi-fall-left' : 'animate-taxi-fall-right'
+          }`}
+          style={{
+            left: taxi.direction === 'left' ? '10%' : '80%',
+            top: '-100px'
+          }}
+        >
+          🚕
+        </div>
+      ))}
 
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
