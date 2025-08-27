@@ -17,7 +17,7 @@ export default function Index() {
   });
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMusicMuted, setIsMusicMuted] = useState(false);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -35,13 +35,14 @@ export default function Index() {
   const toggleMusic = () => {
     const iframe = document.querySelector('iframe[title="Background Music"]') as HTMLIFrameElement;
     if (iframe) {
-      if (isMusicPlaying) {
-        iframe.style.display = 'none';
-        setIsMusicPlaying(false);
-      } else {
+      if (isMusicMuted) {
+        // Unmute: Show iframe
         iframe.style.display = 'block';
-        iframe.src = iframe.src; // Restart iframe
-        setIsMusicPlaying(true);
+        setIsMusicMuted(false);
+      } else {
+        // Mute: Hide iframe
+        iframe.style.display = 'none';
+        setIsMusicMuted(true);
       }
     }
   };
@@ -199,13 +200,14 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
-      {/* Background Music */}
+      {/* Background Music - Audio Only (1:50-2:30) */}
       <iframe
         className="hidden"
-        src="https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+        src="https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&start=110&end=150&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1"
         allow="autoplay; encrypted-media"
         allowFullScreen
         title="Background Music"
+        style={{ width: '1px', height: '1px', position: 'absolute', opacity: 0 }}
       ></iframe>
 
       {/* Control Buttons */}
@@ -214,9 +216,9 @@ export default function Index() {
         <button
           onClick={toggleMusic}
           className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-          aria-label={isMusicPlaying ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
+          aria-label={isMusicMuted ? "تشغيل الموسيقى" : "كتم الموسيقى"}
         >
-          {isMusicPlaying ? "🔊" : "🔇"}
+          {isMusicMuted ? "🔇" : "🔊"}
         </button>
 
         {/* Language Toggle Button */}
