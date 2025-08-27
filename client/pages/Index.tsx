@@ -31,20 +31,6 @@ export default function Index() {
     setIsArabic(!isArabic);
   };
 
-  const toggleMusic = () => {
-    const iframe = document.querySelector('iframe[title="Background Music"]') as HTMLIFrameElement;
-    if (iframe) {
-      if (isMusicMuted) {
-        // Unmute: Show iframe
-        iframe.style.display = 'block';
-        setIsMusicMuted(false);
-      } else {
-        // Mute: Hide iframe
-        iframe.style.display = 'none';
-        setIsMusicMuted(true);
-      }
-    }
-  };
 
   // Loading screen effect
   useEffect(() => {
