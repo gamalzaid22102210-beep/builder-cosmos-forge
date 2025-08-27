@@ -54,13 +54,16 @@ export default function Index() {
 
   // Automatic taxi drop every 1 second
   useEffect(() => {
+    let taxiCounter = 0;
+
     const autoTaxiInterval = setInterval(() => {
       // Alternate direction: even numbers from right, odd numbers from left
-      const direction: 'left' | 'right' = scrollTaxis.length % 2 === 0 ? 'right' : 'left';
+      const direction: 'left' | 'right' = taxiCounter % 2 === 0 ? 'right' : 'left';
+      taxiCounter++;
 
       // Create new taxi
       const newTaxi = {
-        id: Date.now(),
+        id: Date.now() + Math.random(),
         direction,
         timestamp: Date.now()
       };
@@ -74,7 +77,7 @@ export default function Index() {
     }, 1000); // Every 1 second
 
     return () => clearInterval(autoTaxiInterval);
-  }, [scrollTaxis.length]);
+  }, []); // Empty dependency array to run only once
 
 
   const SocialIcon = ({
