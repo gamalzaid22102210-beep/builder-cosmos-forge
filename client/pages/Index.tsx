@@ -16,7 +16,7 @@ export default function Index() {
     seconds: 0,
   });
 
-  const targetDate = new Date('2024-09-05T00:00:00').getTime();
+  const targetDate = new Date('2025-09-05T00:00:00').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
