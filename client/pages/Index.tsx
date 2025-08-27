@@ -17,9 +17,6 @@ export default function Index() {
   });
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isMusicMuted, setIsMusicMuted] = useState(false);
-  const [audioStarted, setAudioStarted] = useState(false);
-  const [showAudioPermission, setShowAudioPermission] = useState(true);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -213,70 +210,15 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
-      {/* Background Music - Audio Only (1:50-2:30) */}
-      <iframe
-        className="hidden"
-        src={audioStarted ? "https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&start=110&end=150&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1" : ""}
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-        title="Background Music"
-        style={{ width: '1px', height: '1px', position: 'absolute', opacity: 0 }}
-      ></iframe>
 
-      {/* Audio Permission Modal */}
-      {showAudioPermission && (
-        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black border-2 border-egypt-gold rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fade-in">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🎵</div>
-              <h3 className="text-2xl font-bold text-egypt-gold mb-4">
-                {isArabic ? 'تشغيل الموسيقى؟' : 'Play Background Music?'}
-              </h3>
-              <p className="text-egypt-sand mb-8">
-                {isArabic
-                  ? 'هل تريد تشغيل الموسيقى الخلفية لتجربة أفضل؟'
-                  : 'Would you like to play background music for a better experience?'
-                }
-              </p>
-              <div className="flex gap-4 justify-center">
-                <button
-                  onClick={handleAllowAudio}
-                  className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
-                  {isArabic ? '✅ نعم' : '✅ Yes'}
-                </button>
-                <button
-                  onClick={handleDenyAudio}
-                  className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
-                  {isArabic ? '❌ لا' : '❌ No'}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Control Buttons */}
-      <div className="fixed top-6 right-6 z-50 flex gap-3">
-        {/* Music Toggle Button */}
-        <button
-          onClick={toggleMusic}
-          className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-          aria-label={isMusicMuted ? "تشغيل الموسيقى" : "كتم الموسيقى"}
-        >
-          {isMusicMuted ? "🔇" : "🔊"}
-        </button>
-
-        {/* Language Toggle Button */}
-        <button
-          onClick={toggleLanguage}
-          className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-          aria-label={isArabic ? "Switch to English" : "التبديل للعربية"}
-        >
-          <Languages className="w-5 h-5" />
-        </button>
-      </div>
+      {/* Language Toggle Button */}
+      <button
+        onClick={toggleLanguage}
+        className="fixed top-6 right-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+        aria-label={isArabic ? "Switch to English" : "التبديل للعربية"}
+      >
+        <Languages className="w-5 h-5" />
+      </button>
 
       {/* Scroll Taxis */}
       {scrollTaxis.map((taxi) => (
