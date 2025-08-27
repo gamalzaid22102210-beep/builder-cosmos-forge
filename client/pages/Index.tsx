@@ -131,7 +131,7 @@ export default function Index() {
       return {
         days: 'أيام',
         hours: 'ساعات',
-        minutes: 'دقائق',
+        minutes: 'دق��ئق',
         seconds: 'ثواني'
       };
     }
@@ -200,7 +200,7 @@ export default function Index() {
           <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
             🚕
           </div>
-          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest animate-fire-text">
+          <div className="text-2xl md:text-4xl font-bold mb-6 tracking-widest animate-fire-text">
             WAIT US ON SEPTEMBER 5
           </div>
         </div>
