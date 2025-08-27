@@ -179,4 +179,67 @@
       animation-delay: 1s;
     }
   }
+
+  @keyframes rainbow-3d {
+    0% {
+      background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080, #ff0000);
+      background-size: 400% 400%;
+      background-position: 0% 50%;
+      text-shadow:
+        3px 3px 0px rgba(255, 0, 0, 0.8),
+        6px 6px 0px rgba(255, 128, 0, 0.6),
+        9px 9px 0px rgba(255, 255, 0, 0.4),
+        12px 12px 0px rgba(128, 255, 0, 0.2),
+        15px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+    25% {
+      background-position: 100% 50%;
+      text-shadow:
+        3px 3px 0px rgba(0, 255, 0, 0.8),
+        6px 6px 0px rgba(0, 255, 128, 0.6),
+        9px 9px 0px rgba(0, 255, 255, 0.4),
+        12px 12px 0px rgba(0, 128, 255, 0.2),
+        15px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+    50% {
+      background-position: 50% 100%;
+      text-shadow:
+        3px 3px 0px rgba(0, 0, 255, 0.8),
+        6px 6px 0px rgba(128, 0, 255, 0.6),
+        9px 9px 0px rgba(255, 0, 128, 0.4),
+        12px 12px 0px rgba(255, 0, 0, 0.2),
+        15px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+    75% {
+      background-position: 0% 0%;
+      text-shadow:
+        3px 3px 0px rgba(255, 128, 0, 0.8),
+        6px 6px 0px rgba(255, 255, 0, 0.6),
+        9px 9px 0px rgba(128, 255, 0, 0.4),
+        12px 12px 0px rgba(0, 255, 0, 0.2),
+        15px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080, #ff0000);
+      background-size: 400% 400%;
+      background-position: 0% 50%;
+      text-shadow:
+        3px 3px 0px rgba(255, 0, 0, 0.8),
+        6px 6px 0px rgba(255, 128, 0, 0.6),
+        9px 9px 0px rgba(255, 255, 0, 0.4),
+        12px 12px 0px rgba(128, 255, 0, 0.2),
+        15px 15px 20px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .animate-rainbow-3d {
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff0080, #ff0000);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-3d 3s ease-in-out infinite;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    transform: perspective(500px) rotateX(15deg);
+  }
 }

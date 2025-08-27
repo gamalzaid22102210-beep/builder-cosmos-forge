@@ -138,19 +138,13 @@ export default function Index() {
           <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
             🚕
           </div>
-          <div className="text-2xl md:text-4xl font-bold text-egypt-sand mb-12 tracking-widest">
+          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest animate-rainbow-3d">
             WAIT US ON SEPTEMBER 5
           </div>
         </div>
 
         {/* Countdown Timer */}
         <div className="mb-16">
-          <div className="flex items-center justify-center mb-8">
-            <Calendar className="w-6 h-6 text-egypt-gold mr-3" />
-            <span className="text-egypt-sand text-lg md:text-xl font-semibold">
-              يوم ٥ سبتمبر
-            </span>
-          </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <CountdownBox value={timeLeft.days} label="DAYS" />
