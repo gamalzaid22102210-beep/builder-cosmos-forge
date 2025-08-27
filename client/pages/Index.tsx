@@ -54,6 +54,30 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  // Automatic taxi drop every 2 seconds
+  useEffect(() => {
+    const autoTaxiInterval = setInterval(() => {
+      // Alternate direction: even numbers from right, odd numbers from left
+      const direction: 'left' | 'right' = scrollTaxis.length % 2 === 0 ? 'right' : 'left';
+
+      // Create new taxi
+      const newTaxi = {
+        id: Date.now(),
+        direction,
+        timestamp: Date.now()
+      };
+
+      setScrollTaxis(prev => [...prev, newTaxi]);
+
+      // Remove taxi after animation completes
+      setTimeout(() => {
+        setScrollTaxis(prev => prev.filter(taxi => taxi.id !== newTaxi.id));
+      }, 3000);
+    }, 2000); // Every 2 seconds
+
+    return () => clearInterval(autoTaxiInterval);
+  }, [scrollTaxis.length]);
+
   // Scroll taxi effect
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
@@ -80,7 +104,7 @@ export default function Index() {
 
         // Create new taxi
         const newTaxi = {
-          id: Date.now(),
+          id: Date.now() + Math.random(), // Add random to avoid ID conflicts
           direction,
           timestamp: Date.now(),
         };
