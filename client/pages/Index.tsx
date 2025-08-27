@@ -184,6 +184,15 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
+      {/* Background Music */}
+      <iframe
+        className="hidden"
+        src="https://www.youtube.com/embed/-uVxtutI22A?autoplay=1&mute=0&loop=1&playlist=-uVxtutI22A&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        title="Background Music"
+      ></iframe>
+
       {/* Language Toggle Button */}
       <button
         onClick={toggleLanguage}
