@@ -60,18 +60,18 @@ export default function Index() {
 
       // Only trigger if scrolling down significantly
       if (currentScrollY > lastScrollY + 50) {
-        // Determine horizontal scroll direction
+        // Determine horizontal scroll direction (taxi comes from opposite side)
         let direction: 'left' | 'right' = 'right';
 
         if (currentScrollX > lastScrollX) {
-          // Scrolling right, taxi comes from left
+          // Scrolling right, taxi comes from left side
           direction = 'left';
         } else if (currentScrollX < lastScrollX) {
-          // Scrolling left, taxi comes from right
+          // Scrolling left, taxi comes from right side
           direction = 'right';
         } else {
           // No horizontal scroll, alternate direction
-          direction = scrollTaxis.length % 2 === 0 ? 'left' : 'right';
+          direction = scrollTaxis.length % 2 === 0 ? 'right' : 'left';
         }
 
         // Create new taxi
@@ -172,10 +172,10 @@ export default function Index() {
         <div
           key={taxi.id}
           className={`fixed text-4xl z-40 animate-taxi-fall ${
-            taxi.direction === 'left' ? 'animate-taxi-fall-left' : 'animate-taxi-fall-right'
+            taxi.direction === 'left' ? 'animate-taxi-fall-from-left' : 'animate-taxi-fall-from-right'
           }`}
           style={{
-            left: taxi.direction === 'left' ? '10%' : '80%',
+            left: taxi.direction === 'left' ? '10%' : '85%',
             top: '-100px'
           }}
         >

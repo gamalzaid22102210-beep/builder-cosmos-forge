@@ -161,7 +161,7 @@
     animation-delay: 1s;
   }
 
-  @keyframes taxi-fall-left {
+  @keyframes taxi-fall-from-left {
     0% {
       transform: translateY(-100px) translateX(0px) rotate(45deg);
       opacity: 0;
@@ -173,12 +173,12 @@
       opacity: 1;
     }
     100% {
-      transform: translateY(100vh) translateX(-50px) rotate(45deg);
+      transform: translateY(100vh) translateX(30px) rotate(45deg);
       opacity: 0;
     }
   }
 
-  @keyframes taxi-fall-right {
+  @keyframes taxi-fall-from-right {
     0% {
       transform: translateY(-100px) translateX(0px) rotate(-45deg);
       opacity: 0;
@@ -190,17 +190,17 @@
       opacity: 1;
     }
     100% {
-      transform: translateY(100vh) translateX(50px) rotate(-45deg);
+      transform: translateY(100vh) translateX(-30px) rotate(-45deg);
       opacity: 0;
     }
   }
 
-  .animate-taxi-fall-left {
-    animation: taxi-fall-left 3s ease-in forwards;
+  .animate-taxi-fall-from-left {
+    animation: taxi-fall-from-left 3s ease-in forwards;
   }
 
-  .animate-taxi-fall-right {
-    animation: taxi-fall-right 3s ease-in forwards;
+  .animate-taxi-fall-from-right {
+    animation: taxi-fall-from-right 3s ease-in forwards;
   }
 
   @keyframes taxi-drive-mobile {
