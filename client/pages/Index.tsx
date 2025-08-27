@@ -19,6 +19,7 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
   const [audioStarted, setAudioStarted] = useState(false);
+  const [showAudioPermission, setShowAudioPermission] = useState(true);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -57,38 +58,16 @@ export default function Index() {
     return () => clearTimeout(loadingTimer);
   }, []);
 
-  // Auto-start audio after user interaction
-  useEffect(() => {
-    const startAudio = () => {
-      if (!audioStarted) {
-        setAudioStarted(true);
-        // Enable iframe after user interaction
-        const iframe = document.querySelector('iframe[title="Background Music"]') as HTMLIFrameElement;
-        if (iframe) {
-          iframe.src = iframe.src; // Restart to trigger autoplay after user interaction
-        }
-      }
-    };
+  const handleAllowAudio = () => {
+    setAudioStarted(true);
+    setShowAudioPermission(false);
+  };
 
-    // Listen for any user interaction
-    const handleInteraction = () => {
-      startAudio();
-      // Remove listeners after first interaction
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-
-    document.addEventListener('click', handleInteraction);
-    document.addEventListener('keydown', handleInteraction);
-    document.addEventListener('touchstart', handleInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-  }, [audioStarted]);
+  const handleDenyAudio = () => {
+    setAudioStarted(false);
+    setIsMusicMuted(true);
+    setShowAudioPermission(false);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -244,10 +223,37 @@ export default function Index() {
         style={{ width: '1px', height: '1px', position: 'absolute', opacity: 0 }}
       ></iframe>
 
-      {/* Audio prompt */}
-      {!audioStarted && (
-        <div className="fixed bottom-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black px-4 py-2 rounded-full shadow-lg animate-pulse">
-          <span className="text-sm font-semibold">🎵 Click anywhere to start music</span>
+      {/* Audio Permission Modal */}
+      {showAudioPermission && (
+        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black border-2 border-egypt-gold rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fade-in">
+            <div className="text-center">
+              <div className="text-6xl mb-4">🎵</div>
+              <h3 className="text-2xl font-bold text-egypt-gold mb-4">
+                {isArabic ? 'تشغيل الموسيقى؟' : 'Play Background Music?'}
+              </h3>
+              <p className="text-egypt-sand mb-8">
+                {isArabic
+                  ? 'هل تريد تشغيل الموسيقى الخلفية لتجربة أفضل؟'
+                  : 'Would you like to play background music for a better experience?'
+                }
+              </p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={handleAllowAudio}
+                  className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  {isArabic ? '✅ نعم' : '✅ Yes'}
+                </button>
+                <button
+                  onClick={handleDenyAudio}
+                  className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  {isArabic ? '❌ لا' : '❌ No'}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
