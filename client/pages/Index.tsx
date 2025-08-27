@@ -17,6 +17,7 @@ export default function Index() {
   });
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -29,6 +30,20 @@ export default function Index() {
 
   const toggleLanguage = () => {
     setIsArabic(!isArabic);
+  };
+
+  const toggleMusic = () => {
+    const iframe = document.querySelector('iframe[title="Background Music"]') as HTMLIFrameElement;
+    if (iframe) {
+      if (isMusicPlaying) {
+        iframe.style.display = 'none';
+        setIsMusicPlaying(false);
+      } else {
+        iframe.style.display = 'block';
+        iframe.src = iframe.src; // Restart iframe
+        setIsMusicPlaying(true);
+      }
+    }
   };
 
   // Loading screen effect
@@ -193,14 +208,26 @@ export default function Index() {
         title="Background Music"
       ></iframe>
 
-      {/* Language Toggle Button */}
-      <button
-        onClick={toggleLanguage}
-        className="fixed top-6 right-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-        aria-label={isArabic ? "Switch to English" : "التبديل للعربية"}
-      >
-        <Languages className="w-5 h-5" />
-      </button>
+      {/* Control Buttons */}
+      <div className="fixed top-6 right-6 z-50 flex gap-3">
+        {/* Music Toggle Button */}
+        <button
+          onClick={toggleMusic}
+          className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+          aria-label={isMusicPlaying ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
+        >
+          {isMusicPlaying ? "🔊" : "🔇"}
+        </button>
+
+        {/* Language Toggle Button */}
+        <button
+          onClick={toggleLanguage}
+          className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+          aria-label={isArabic ? "Switch to English" : "التبديل للعربية"}
+        >
+          <Languages className="w-5 h-5" />
+        </button>
+      </div>
 
       {/* Scroll Taxis */}
       {scrollTaxis.map((taxi) => (
