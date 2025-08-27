@@ -16,7 +16,7 @@ export default function Index() {
     seconds: 0,
   });
 
-  const targetDate = new Date('2024-09-10T00:00:00').getTime();
+  const targetDate = new Date('2024-09-05T00:00:00').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -87,8 +87,8 @@ export default function Index() {
           <div className="text-6xl md:text-8xl mb-8 animate-bounce">
             🚕
           </div>
-          <div className="text-3xl md:text-5xl font-bold text-egypt-sand mb-12 tracking-widest">
-            SOON
+          <div className="text-2xl md:text-4xl font-bold text-egypt-sand mb-12 tracking-widest">
+            WAIT US ON SEPTEMBER 5
           </div>
         </div>
 
@@ -97,7 +97,7 @@ export default function Index() {
           <div className="flex items-center justify-center mb-8">
             <Calendar className="w-6 h-6 text-egypt-gold mr-3" />
             <span className="text-egypt-sand text-lg md:text-xl font-semibold">
-              يوم ١٠ سبتمبر
+              يوم ٥ سبتمبر
             </span>
           </div>
           
