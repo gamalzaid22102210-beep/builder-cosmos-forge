@@ -54,7 +54,7 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Automatic taxi drop every 2 seconds
+  // Automatic taxi drop every 1 second
   useEffect(() => {
     const autoTaxiInterval = setInterval(() => {
       // Alternate direction: even numbers from right, odd numbers from left
@@ -73,68 +73,11 @@ export default function Index() {
       setTimeout(() => {
         setScrollTaxis(prev => prev.filter(taxi => taxi.id !== newTaxi.id));
       }, 3000);
-    }, 2000); // Every 2 seconds
+    }, 1000); // Every 1 second
 
     return () => clearInterval(autoTaxiInterval);
   }, [scrollTaxis.length]);
 
-  // Scroll taxi effect
-  useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const currentScrollX = window.scrollX;
-
-      // Only trigger if scrolling down significantly
-      if (currentScrollY > lastScrollY + 50) {
-        // Determine horizontal scroll direction (taxi comes from opposite side)
-        let direction: "left" | "right" = "right";
-
-        if (currentScrollX > lastScrollX) {
-          // Scrolling right, taxi comes from left side
-          direction = "left";
-        } else if (currentScrollX < lastScrollX) {
-          // Scrolling left, taxi comes from right side
-          direction = "right";
-        } else {
-          // No horizontal scroll, alternate direction
-          direction = scrollTaxis.length % 2 === 0 ? "right" : "left";
-        }
-
-        // Create new taxi
-        const newTaxi = {
-          id: Date.now() + Math.random(), // Add random to avoid ID conflicts
-          direction,
-          timestamp: Date.now(),
-        };
-
-        setScrollTaxis((prev) => [...prev, newTaxi]);
-
-        // Remove taxi after animation completes
-        setTimeout(() => {
-          setScrollTaxis((prev) =>
-            prev.filter((taxi) => taxi.id !== newTaxi.id),
-          );
-        }, 3000);
-      }
-
-      setLastScrollY(currentScrollY);
-      setLastScrollX(currentScrollX);
-    };
-
-    // Throttle scroll events
-    const throttledScroll = () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScroll, 100);
-    };
-
-    window.addEventListener("scroll", throttledScroll);
-    return () => {
-      window.removeEventListener("scroll", throttledScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, [lastScrollY, lastScrollX, scrollTaxis.length]);
 
   const SocialIcon = ({
     href,
