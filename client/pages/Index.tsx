@@ -143,9 +143,8 @@ export default function Index() {
           <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
             🚕
           </div>
-          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest">
-            <span className="animate-rainbow-3d">WAIT US</span>
-            <span className="text-egypt-sand"> ON SEPTEMBER 5</span>
+          <div className="text-2xl md:text-4xl font-bold mb-12 tracking-widest animate-fire-text">
+            WAIT US ON SEPTEMBER 5
           </div>
         </div>
 
