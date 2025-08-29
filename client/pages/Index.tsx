@@ -32,7 +32,6 @@ export default function Index() {
     setIsArabic(!isArabic);
   };
 
-
   // Loading screen effect
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
@@ -221,7 +220,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-egypt-black via-gray-900 to-egypt-black relative overflow-hidden">
-
       {/* Language Toggle Button */}
       <button
         onClick={toggleLanguage}
