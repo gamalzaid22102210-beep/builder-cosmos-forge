@@ -160,6 +160,12 @@ export default function Index() {
   );
 
   const labels = getCountdownLabels();
+  const isFridayBannerActive = (() => {
+    const now = new Date();
+    const day = now.getDay(); // 5 = Friday
+    const hours = now.getHours();
+    return day === 5 && hours < 20; // show for first 20 hours of Friday
+  })();
 
   // Loading Screen
   if (isLoading) {
@@ -182,6 +188,12 @@ export default function Index() {
           <div className="text-egypt-gold text-lg md:text-xl font-semibold tracking-wider animate-pulse">
             PROGRAMMED BY MARWANZAID
           </div>
+
+          {isFridayBannerActive && (
+            <div className="mt-4 text-egypt-sand text-base md:text-lg font-semibold">
+              {isArabic ? 'جمعة مباركة' : 'Blessed Friday'}
+            </div>
+          )}
 
           {/* Loading dots */}
           <div className="flex justify-center space-x-1 mt-6">
