@@ -204,7 +204,7 @@ export default function Index() {
 
           {isBannerActive && (
             <div className="mt-4 text-egypt-sand text-base md:text-lg font-semibold">
-              {isArabic ? 'جمعة مباركة' : 'Blessed Friday'}
+              جمعة مباركة
             </div>
           )}
 
