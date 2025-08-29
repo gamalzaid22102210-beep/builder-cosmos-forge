@@ -17,6 +17,7 @@ export default function Index() {
   });
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isBannerActive, setIsBannerActive] = useState(false);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -39,6 +40,24 @@ export default function Index() {
     }, 2500); // Show loading for 2.5 seconds
 
     return () => clearTimeout(loadingTimer);
+  }, []);
+
+  // Special Friday phrase: start now, end after 20 hours (persisted)
+  useEffect(() => {
+    try {
+      const key = "bannerStartAtV1";
+      const now = Date.now();
+      const stored = localStorage.getItem(key);
+      if (!stored) {
+        localStorage.setItem(key, String(now));
+        setIsBannerActive(true);
+      } else {
+        const start = parseInt(stored, 10);
+        setIsBannerActive(now - start < 20 * 60 * 60 * 1000);
+      }
+    } catch (e) {
+      setIsBannerActive(true);
+    }
   }, []);
 
   const handleAllowAudio = () => {
@@ -160,12 +179,6 @@ export default function Index() {
   );
 
   const labels = getCountdownLabels();
-  const isFridayBannerActive = (() => {
-    const now = new Date();
-    const day = now.getDay(); // 5 = Friday
-    const hours = now.getHours();
-    return day === 5 && hours < 20; // show for first 20 hours of Friday
-  })();
 
   // Loading Screen
   if (isLoading) {
@@ -189,7 +202,7 @@ export default function Index() {
             PROGRAMMED BY MARWANZAID
           </div>
 
-          {isFridayBannerActive && (
+          {isBannerActive && (
             <div className="mt-4 text-egypt-sand text-base md:text-lg font-semibold">
               {isArabic ? 'جمعة مباركة' : 'Blessed Friday'}
             </div>
