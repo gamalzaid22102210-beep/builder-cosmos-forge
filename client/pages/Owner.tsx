@@ -11,7 +11,9 @@ export default function Owner() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const playerRef = useRef<any>(null);
-  const containerIdRef = useRef(`yt-audio-${Math.random().toString(36).slice(2)}`);
+  const containerIdRef = useRef(
+    `yt-audio-${Math.random().toString(36).slice(2)}`,
+  );
 
   useEffect(() => {
     const w = window as any;
@@ -26,7 +28,9 @@ export default function Owner() {
     } else {
       const prev = w.onYouTubeIframeAPIReady;
       w.onYouTubeIframeAPIReady = () => {
-        try { prev(); } catch {}
+        try {
+          prev();
+        } catch {}
         onReady();
       };
     }
@@ -78,7 +82,8 @@ export default function Owner() {
       if (isPlaying) {
         p.pauseVideo();
       } else {
-        if (isMuted) p.mute(); else p.unMute();
+        if (isMuted) p.mute();
+        else p.unMute();
         p.playVideo();
       }
     } catch {}
@@ -113,7 +118,14 @@ export default function Owner() {
       {/* Hidden (1x1) YouTube player for audio only */}
       <div
         id={containerIdRef.current}
-        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: 1,
+          height: 1,
+          opacity: 0,
+          pointerEvents: "none",
+        }}
         aria-hidden
       />
 
@@ -124,21 +136,25 @@ export default function Owner() {
           disabled={!apiReady}
         >
           {isPlaying ? (
-            <span className="flex items-center gap-2"><Pause className="w-4 h-4" /> إيقاف مؤقت</span>
+            <span className="flex items-center gap-2">
+              <Pause className="w-4 h-4" /> إيقاف مؤقت
+            </span>
           ) : (
-            <span className="flex items-center gap-2"><Play className="w-4 h-4" /> تشغيل الصوت</span>
+            <span className="flex items-center gap-2">
+              <Play className="w-4 h-4" /> تشغيل الصوت
+            </span>
           )}
         </Button>
 
-        <Button
-          variant="outline"
-          onClick={toggleMute}
-          disabled={!apiReady}
-        >
+        <Button variant="outline" onClick={toggleMute} disabled={!apiReady}>
           {isMuted ? (
-            <span className="flex items-center gap-2"><VolumeX className="w-4 h-4" /> كتم</span>
+            <span className="flex items-center gap-2">
+              <VolumeX className="w-4 h-4" /> كتم
+            </span>
           ) : (
-            <span className="flex items-center gap-2"><Volume2 className="w-4 h-4" /> صوت</span>
+            <span className="flex items-center gap-2">
+              <Volume2 className="w-4 h-4" /> صوت
+            </span>
           )}
         </Button>
       </div>

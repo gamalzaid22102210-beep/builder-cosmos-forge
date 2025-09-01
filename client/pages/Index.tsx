@@ -70,7 +70,8 @@ export default function Index() {
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       try {
-        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        const data =
+          typeof event.data === "string" ? JSON.parse(event.data) : event.data;
         if (data?.event === "onReady") {
           setPlayerReady(true);
         }
@@ -271,7 +272,9 @@ export default function Index() {
           <div className="mx-auto w-64 h-2 bg-egypt-gold/20 rounded-full overflow-hidden border border-egypt-gold/30">
             <div
               className="h-full bg-gradient-to-r from-egypt-gold to-egypt-gold-light"
-              style={{ animation: `progress-fill ${LOADING_DURATION}ms linear forwards` }}
+              style={{
+                animation: `progress-fill ${LOADING_DURATION}ms linear forwards`,
+              }}
             />
           </div>
 
@@ -320,7 +323,14 @@ export default function Index() {
       <iframe
         ref={iframeRef}
         src={`https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=${videoId}&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
-        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: 1,
+          height: 1,
+          opacity: 0,
+          pointerEvents: "none",
+        }}
         allow="autoplay; encrypted-media"
         tabIndex={-1}
         aria-hidden
@@ -330,9 +340,29 @@ export default function Index() {
       <button
         onClick={toggleAudio}
         className="fixed top-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-        aria-label={isArabic ? (audioStarted ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : "تشغيل صامت") : (audioStarted ? (isMuted ? "Unmute" : "Mute") : "Play muted")}
+        aria-label={
+          isArabic
+            ? audioStarted
+              ? isMuted
+                ? "تشغيل الصوت"
+                : "كتم الصوت"
+              : "تشغيل صامت"
+            : audioStarted
+              ? isMuted
+                ? "Unmute"
+                : "Mute"
+              : "Play muted"
+        }
       >
-        {audioStarted ? (isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />) : <VolumeX className="w-5 h-5" />}
+        {audioStarted ? (
+          isMuted ? (
+            <VolumeX className="w-5 h-5" />
+          ) : (
+            <Volume2 className="w-5 h-5" />
+          )
+        ) : (
+          <VolumeX className="w-5 h-5" />
+        )}
       </button>
 
       {/* Scroll Taxis */}
@@ -367,7 +397,11 @@ export default function Index() {
           <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent mb-4 tracking-tight">
             EGYPTIAN ADVENTURE
           </h1>
-          <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative pointer-events-none select-none" aria-hidden style={{ willChange: "transform" }}>
+          <div
+            className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative pointer-events-none select-none"
+            aria-hidden
+            style={{ willChange: "transform" }}
+          >
             🚕
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-6 tracking-widest animate-fire-text">
@@ -421,7 +455,9 @@ export default function Index() {
                     {isArabic ? "دخول المالك" : "Owner Access"}
                   </DialogTitle>
                   <DialogDescription className="text-egypt-sand/80">
-                    {isArabic ? "أدخل كلمة المرور للمتابعة" : "Enter the password to continue"}
+                    {isArabic
+                      ? "أدخل كلمة المرور للمتابعة"
+                      : "Enter the password to continue"}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-3 pt-2">
@@ -450,7 +486,9 @@ export default function Index() {
                         toast({
                           title: (
                             <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
-                              {isArabic ? "مرحبًا أيها الما��ك" : "Welcome, Owner"}
+                              {isArabic
+                                ? "مرحبًا أيها الما��ك"
+                                : "Welcome, Owner"}
                             </span>
                           ),
                           className:
@@ -461,7 +499,9 @@ export default function Index() {
                         navigate("/owner");
                       } else {
                         toast({
-                          title: isArabic ? "كلمة المرور غير صحيحة" : "Incorrect password",
+                          title: isArabic
+                            ? "كلمة المرور غير صحيحة"
+                            : "Incorrect password",
                           variant: "destructive",
                         });
                       }
@@ -475,7 +515,8 @@ export default function Index() {
 
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
-                حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم المغامرة ويصنع الأ��طورة.
+                حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
+                المغامرة ويصنع الأ��طورة.
               </p>
             )}
           </div>
