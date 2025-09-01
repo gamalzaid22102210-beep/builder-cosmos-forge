@@ -25,7 +25,7 @@ export default function Index() {
     }>
   >([]);
 
-  const targetDate = new Date("2025-09-05T00:00:00").getTime();
+  const targetDate = new Date("2025-09-10T00:00:00").getTime();
 
   const toggleLanguage = () => {
     setIsArabic(!isArabic);
@@ -268,7 +268,7 @@ export default function Index() {
             🚕
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-6 tracking-widest animate-fire-text">
-            WAIT US ON SEPTEMBER 5
+            WAIT US ON SEPTEMBER 10
           </div>
         </div>
 
