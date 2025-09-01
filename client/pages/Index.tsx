@@ -31,11 +31,12 @@ export default function Index() {
     setIsArabic(!isArabic);
   };
 
+  const LOADING_DURATION = 1500;
   // Loading screen effect
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500); // Show loading for 2.5 seconds
+    }, LOADING_DURATION);
 
     return () => clearTimeout(loadingTimer);
   }, []);
@@ -73,33 +74,37 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Automatic taxi drop every 1 second
+  // Automatic taxi drop every 2 seconds with cap and respects reduced motion
   useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mql.matches) return;
+
     let taxiCounter = 0;
 
     const autoTaxiInterval = setInterval(() => {
-      // Alternate direction: even numbers from right, odd numbers from left
       const direction: "left" | "right" =
         taxiCounter % 2 === 0 ? "right" : "left";
       taxiCounter++;
 
-      // Create new taxi
       const newTaxi = {
         id: Date.now() + Math.random(),
         direction,
         timestamp: Date.now(),
       };
 
-      setScrollTaxis((prev) => [...prev, newTaxi]);
+      setScrollTaxis((prev) => {
+        const next = [...prev, newTaxi];
+        if (next.length > 6) next.shift();
+        return next;
+      });
 
-      // Remove taxi after animation completes
       setTimeout(() => {
         setScrollTaxis((prev) => prev.filter((taxi) => taxi.id !== newTaxi.id));
       }, 3000);
-    }, 1000); // Every 1 second
+    }, 2000);
 
     return () => clearInterval(autoTaxiInterval);
-  }, []); // Empty dependency array to run only once
+  }, []);
 
   const SocialIcon = ({
     href,
@@ -172,9 +177,17 @@ export default function Index() {
 
         <div className="text-center relative z-10">
           {/* Loading spinner */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className="text-6xl mb-4 animate-bounce">🚕</div>
             <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mx-auto w-64 h-2 bg-egypt-gold/20 rounded-full overflow-hidden border border-egypt-gold/30">
+            <div
+              className="h-full bg-gradient-to-r from-egypt-gold to-egypt-gold-light"
+              style={{ animation: `progress-fill ${LOADING_DURATION}ms linear forwards` }}
+            />
           </div>
 
           {/* Programmer credit */}
