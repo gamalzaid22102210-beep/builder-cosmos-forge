@@ -5,7 +5,7 @@ import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 export default function Owner() {
   const navigate = useNavigate();
-  const videoId = "rPu_CD5UDpY";
+  const videoId = "vslsS-Uu5x4";
 
   const [apiReady, setApiReady] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);

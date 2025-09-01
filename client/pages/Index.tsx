@@ -62,48 +62,74 @@ export default function Index() {
 
   const [audioStarted, setAudioStarted] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const gainRef = useRef<GainNode | null>(null);
-  const oscRef = useRef<OscillatorNode | null>(null);
+  const [apiReady, setApiReady] = useState(false);
+  const playerRef = useRef<any>(null);
+  const containerIdRef = useRef(`yt-audio-${Math.random().toString(36).slice(2)}`);
+  const videoId = "vslsS-Uu5x4";
 
-  const ensureAudio = async () => {
-    if (!audioCtxRef.current) {
-      const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
-      const ctx: AudioContext = new AC();
-      const gain = ctx.createGain();
-      gain.gain.value = 0;
-      gain.connect(ctx.destination);
-      const osc = ctx.createOscillator();
-      osc.type = "sine";
-      osc.frequency.value = 220;
-      osc.connect(gain);
-      osc.start();
-      audioCtxRef.current = ctx;
-      gainRef.current = gain;
-      oscRef.current = osc;
+  useEffect(() => {
+    const w = window as any;
+    const onReady = () => setApiReady(true);
+    if (w.YT && w.YT.Player) {
+      setApiReady(true);
+    } else {
+      if (!w.onYouTubeIframeAPIReady) {
+        w.onYouTubeIframeAPIReady = onReady;
+      } else {
+        const prev = w.onYouTubeIframeAPIReady;
+        w.onYouTubeIframeAPIReady = () => {
+          try { prev(); } catch {}
+          onReady();
+        };
+      }
+      if (!document.getElementById("youtube-iframe-api")) {
+        const tag = document.createElement("script");
+        tag.id = "youtube-iframe-api";
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+      }
     }
-    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
-      await audioCtxRef.current.resume();
-    }
-  };
+  }, []);
 
-  const setGainSmooth = (val: number) => {
-    const ctx = audioCtxRef.current;
-    const gain = gainRef.current?.gain;
-    if (ctx && gain) {
-      gain.cancelScheduledValues(0);
-      gain.linearRampToValueAtTime(val, ctx.currentTime + 0.1);
-    }
+  const createPlayerIfNeeded = () => {
+    const w = window as any;
+    if (!apiReady || playerRef.current) return;
+    playerRef.current = new w.YT.Player(containerIdRef.current, {
+      height: "1",
+      width: "1",
+      videoId,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        rel: 0,
+        modestbranding: 1,
+        playsinline: 1,
+        loop: 1,
+        playlist: videoId,
+        origin: window.location.origin,
+      },
+      events: {
+        onReady: () => {
+          if (isMuted) playerRef.current.mute();
+          else playerRef.current.unMute();
+        },
+      },
+    });
   };
 
   const toggleAudio = async () => {
-    await ensureAudio();
+    createPlayerIfNeeded();
+    const p = playerRef.current;
+    if (!p) return;
     if (isMuted) {
-      setGainSmooth(0.15);
+      try {
+        p.unMute();
+        p.playVideo();
+      } catch {}
       setAudioStarted(true);
       setIsMuted(false);
     } else {
-      setGainSmooth(0);
+      p.mute();
       setIsMuted(true);
     }
   };
@@ -111,8 +137,11 @@ export default function Index() {
   useEffect(() => {
     return () => {
       try {
-        oscRef.current?.stop();
-        audioCtxRef.current?.close();
+        const p = playerRef.current;
+        if (p) {
+          p.stopVideo?.();
+          p.destroy?.();
+        }
       } catch {}
     };
   }, []);
@@ -297,6 +326,12 @@ export default function Index() {
       >
         <Languages className="w-5 h-5" />
       </button>
+
+      <div
+        id={containerIdRef.current}
+        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+        aria-hidden
+      />
 
       <button
         onClick={toggleAudio}
