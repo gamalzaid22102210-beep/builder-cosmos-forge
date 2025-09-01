@@ -290,7 +290,17 @@ export default function Index() {
             <button
               type="button"
               aria-label={isArabic ? "ابدأ الآن" : "Start now"}
-              onClick={() => toast({ title: "WAIT US ON SEPTEMBER 10🚀🚀" })}
+              onClick={() =>
+                toast({
+                  title: (
+                    <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
+                      WAIT US ON SEPTEMBER 10🚀🚀
+                    </span>
+                  ),
+                  className:
+                    "border-egypt-gold/60 bg-gradient-to-r from-egypt-gold/10 to-egypt-gold-light/10 backdrop-blur-md shadow-2xl",
+                })
+              }
               className="px-8 py-3 rounded-full font-bold text-egypt-black bg-gradient-to-r from-egypt-gold to-egypt-gold-light shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out border border-egypt-gold/40 focus:outline-none focus:ring-2 focus:ring-egypt-gold/60"
             >
               {isArabic ? "ابدأ الآن 🚀" : "START NOW 🚀"}
