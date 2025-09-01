@@ -62,7 +62,7 @@ export default function Index() {
 
   const [audioStarted, setAudioStarted] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const videoId = "vslsS-Uu5x4";
+  const videoId = "SLKS4_BBYmk";
   const [playerReady, setPlayerReady] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const pendingStartRef = useRef(false);
@@ -475,7 +475,7 @@ export default function Index() {
 
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
-                حان وقت الانطلاق! نسر اللعبة تحرّر الآن — كن أول من يقتحم المغامرة ويصنع الأ��طورة.
+                حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم المغامرة ويصنع الأ��طورة.
               </p>
             )}
           </div>
