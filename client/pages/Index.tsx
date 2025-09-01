@@ -140,7 +140,7 @@ export default function Index() {
       return {
         days: "أيام",
         hours: "ساعات",
-        minutes: "دق��ئق",
+        minutes: "دقائق",
         seconds: "ثواني",
       };
     }
@@ -338,7 +338,7 @@ export default function Index() {
           </p>
           <p className="text-xs md:text-sm text-egypt-sand/60">
             {isArabic
-              ? "© 2025 جميع الحقوق ��حفوظة"
+              ? "© 2025 جميع الحقوق محفوظة"
               : "© 2025 All rights reserved"}
           </p>
         </div>
