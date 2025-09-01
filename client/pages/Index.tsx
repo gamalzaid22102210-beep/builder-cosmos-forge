@@ -128,6 +128,24 @@ export default function Index() {
 
   const pendingPlayRef = useRef(false);
 
+  useEffect(() => {
+    if (!apiReady) return;
+    if (!playerRef.current) {
+      createPlayerIfNeeded();
+    }
+    const p = playerRef.current;
+    if (p && pendingPlayRef.current) {
+      try {
+        p.mute();
+        p.seekTo(0, true);
+        p.playVideo();
+      } catch {}
+      pendingPlayRef.current = false;
+      setAudioStarted(true);
+      setIsMuted(true);
+    }
+  }, [apiReady]);
+
   const toggleAudio = async () => {
     if (!apiReady) {
       pendingPlayRef.current = true;
