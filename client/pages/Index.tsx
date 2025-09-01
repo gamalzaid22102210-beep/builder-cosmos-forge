@@ -62,116 +62,67 @@ export default function Index() {
 
   const [audioStarted, setAudioStarted] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [apiReady, setApiReady] = useState(false);
-  const playerRef = useRef<any>(null);
-  const containerIdRef = useRef(`yt-audio-${Math.random().toString(36).slice(2)}`);
   const videoId = "vslsS-Uu5x4";
+  const [playerReady, setPlayerReady] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const pendingStartRef = useRef(false);
 
   useEffect(() => {
-    const w = window as any;
-    const onReady = () => setApiReady(true);
-    if (w.YT && w.YT.Player) {
-      setApiReady(true);
-    } else {
-      if (!w.onYouTubeIframeAPIReady) {
-        w.onYouTubeIframeAPIReady = onReady;
-      } else {
-        const prev = w.onYouTubeIframeAPIReady;
-        w.onYouTubeIframeAPIReady = () => {
-          try { prev(); } catch {}
-          onReady();
-        };
-      }
-      if (!document.getElementById("youtube-iframe-api")) {
-        const tag = document.createElement("script");
-        tag.id = "youtube-iframe-api";
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.body.appendChild(tag);
-      }
-    }
+    const onMessage = (event: MessageEvent) => {
+      try {
+        const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+        if (data?.event === "onReady") {
+          setPlayerReady(true);
+        }
+      } catch {}
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
   }, []);
 
-  const createPlayerIfNeeded = () => {
-    const w = window as any;
-    if (!apiReady || playerRef.current) return;
-    playerRef.current = new w.YT.Player(containerIdRef.current, {
-      height: "1",
-      width: "1",
-      videoId,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        rel: 0,
-        modestbranding: 1,
-        playsinline: 1,
-        loop: 1,
-        playlist: videoId,
-        origin: window.location.origin,
-      },
-      events: {
-        onReady: () => {
-          if (isMuted) playerRef.current.mute(); else playerRef.current.unMute();
-          if (pendingPlayRef.current) {
-            try {
-              playerRef.current.mute();
-              playerRef.current.seekTo(0, true);
-              playerRef.current.playVideo();
-            } catch {}
-            pendingPlayRef.current = false;
-            setAudioStarted(true);
-            setIsMuted(true);
-          }
-        },
-      },
-    });
+  const post = (func: string, args: any[] = []) => {
+    const frame = iframeRef.current;
+    if (!frame) return false;
+    frame.contentWindow?.postMessage(
+      JSON.stringify({ event: "command", func, args }),
+      "*",
+    );
+    return true;
   };
 
-  const pendingPlayRef = useRef(false);
-
-  useEffect(() => {
-    if (!apiReady) return;
-    if (!playerRef.current) {
-      createPlayerIfNeeded();
-    }
-    const p = playerRef.current;
-    if (p && pendingPlayRef.current) {
-      try {
-        p.mute();
-        p.seekTo(0, true);
-        p.playVideo();
-      } catch {}
-      pendingPlayRef.current = false;
-      setAudioStarted(true);
-      setIsMuted(true);
-    }
-  }, [apiReady]);
-
-  const toggleAudio = async () => {
-    if (!apiReady) {
-      pendingPlayRef.current = true;
-    }
-    createPlayerIfNeeded();
-    const p = playerRef.current;
-    if (!p) return;
+  const toggleAudio = () => {
     if (!audioStarted) {
-      try {
-        p.mute();
-        p.seekTo(0, true);
-        p.playVideo();
-      } catch {}
-      setAudioStarted(true);
-      setIsMuted(true);
-      pendingPlayRef.current = false;
+      if (!playerReady) {
+        pendingStartRef.current = true;
+      } else {
+        post("mute");
+        post("seekTo", [0, true]);
+        post("playVideo");
+        setAudioStarted(true);
+        setIsMuted(true);
+        pendingStartRef.current = false;
+      }
       return;
     }
     if (isMuted) {
-      p.unMute();
+      post("unMute");
       setIsMuted(false);
     } else {
-      p.mute();
+      post("mute");
       setIsMuted(true);
     }
   };
+
+  useEffect(() => {
+    if (playerReady && pendingStartRef.current) {
+      post("mute");
+      post("seekTo", [0, true]);
+      post("playVideo");
+      setAudioStarted(true);
+      setIsMuted(true);
+      pendingStartRef.current = false;
+    }
+  }, [playerReady]);
 
   useEffect(() => {
     return () => {
@@ -366,9 +317,12 @@ export default function Index() {
         <Languages className="w-5 h-5" />
       </button>
 
-      <div
-        id={containerIdRef.current}
+      <iframe
+        ref={iframeRef}
+        src={`https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=${videoId}&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
         style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+        allow="autoplay; encrypted-media"
+        tabIndex={-1}
         aria-hidden
       />
 
