@@ -20,8 +20,11 @@ interface TimeLeft {
   seconds: number;
 }
 
+import { useNavigate } from "react-router-dom";
+
 export default function Index() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
