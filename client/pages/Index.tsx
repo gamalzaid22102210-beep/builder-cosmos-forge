@@ -324,6 +324,7 @@ export default function Index() {
         allow="autoplay; encrypted-media"
         tabIndex={-1}
         aria-hidden
+        onLoad={() => setPlayerReady(true)}
       />
 
       <button
@@ -449,7 +450,7 @@ export default function Index() {
                         toast({
                           title: (
                             <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
-                              {isArabic ? "مرحبًا أيها المالك" : "Welcome, Owner"}
+                              {isArabic ? "مرحبًا أيها الما��ك" : "Welcome, Owner"}
                             </span>
                           ),
                           className:
