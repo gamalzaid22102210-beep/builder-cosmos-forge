@@ -105,7 +105,6 @@ export default function Index() {
         modestbranding: 1,
         playsinline: 1,
         loop: 1,
-        start: 5,
         playlist: videoId,
         origin: window.location.origin,
       },
@@ -115,7 +114,7 @@ export default function Index() {
           if (pendingPlayRef.current) {
             try {
               playerRef.current.mute();
-              playerRef.current.seekTo(5, true);
+              playerRef.current.seekTo(0, true);
               playerRef.current.playVideo();
             } catch {}
             pendingPlayRef.current = false;
@@ -139,7 +138,7 @@ export default function Index() {
     if (!audioStarted) {
       try {
         p.mute();
-        p.seekTo(5, true);
+        p.seekTo(0, true);
         p.playVideo();
       } catch {}
       setAudioStarted(true);
