@@ -48,6 +48,7 @@ export default function Index() {
   const activeEndRef = useRef<number>(preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000);
   const [twoDayLeft, setTwoDayLeft] = useState({ days: 2, hours: 0 });
   const [twoDayActive, setTwoDayActive] = useState(false);
+  const [twoDayFinished, setTwoDayFinished] = useState(false);
 
   const targetDate = new Date("2025-09-10T00:00:00").getTime();
 
@@ -202,15 +203,18 @@ export default function Index() {
       const now = Date.now();
       if (now < preStartUntilRef.current) {
         setTwoDayActive(false);
+        setTwoDayFinished(false);
         setTwoDayLeft({ days: 2, hours: 0 });
       } else if (now < activeEndRef.current) {
         setTwoDayActive(true);
+        setTwoDayFinished(false);
         const diff = activeEndRef.current - now;
         const days = Math.floor(diff / 86400000);
         const hours = Math.floor((diff % 86400000) / 3600000);
         setTwoDayLeft({ days, hours });
       } else {
         setTwoDayActive(false);
+        setTwoDayFinished(true);
         setTwoDayLeft({ days: 0, hours: 0 });
       }
     };
@@ -435,10 +439,18 @@ export default function Index() {
             WAIT US ON SEPTEMBER 10
           </div>
           <div className="text-blue-400 font-bold text-sm md:text-base mb-6">
-            NEW UPDATE IN 2 days
-            <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
-              {twoDayLeft.days}d {twoDayLeft.hours}h
-            </span>
+            {twoDayFinished ? (
+              <span className="text-blue-400">VEEEEEERY SOOOON</span>
+            ) : twoDayActive ? (
+              <>
+                NEW UPDATE IN
+                <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
+                  {twoDayLeft.days}d {twoDayLeft.hours}h
+                </span>
+              </>
+            ) : (
+              <>NEW UPDATE IN 2 days<span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">2d 0h</span></>
+            )}
           </div>
         </div>
 
