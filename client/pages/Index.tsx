@@ -20,7 +20,7 @@ interface TimeLeft {
   seconds: number;
 }
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Index() {
   const { toast } = useToast();
@@ -282,6 +282,12 @@ export default function Index() {
 
   const labels = getCountdownLabels();
 
+  const [searchParams] = useSearchParams();
+  const forceFinish = searchParams.get("preview") === "twoDayFinished";
+  const isFinished = twoDayFinished || forceFinish;
+  const isActive = twoDayActive && !forceFinish;
+  const displayTwoDayLeft = forceFinish ? { days: 0, hours: 0 } : twoDayLeft;
+
   // Loading Screen
   if (isLoading) {
     return (
@@ -439,13 +445,13 @@ export default function Index() {
             WAIT US ON SEPTEMBER 10
           </div>
           <div className="text-blue-400 font-bold text-sm md:text-base mb-6">
-            {twoDayFinished ? (
+            {isFinished ? (
               <span className="text-blue-400">VEEEEEERY SOOOON</span>
-            ) : twoDayActive ? (
+            ) : isActive ? (
               <>
                 NEW UPDATE IN
                 <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
-                  {twoDayLeft.days}d {twoDayLeft.hours}h
+                  {displayTwoDayLeft.days}d {displayTwoDayLeft.hours}h
                 </span>
               </>
             ) : (
@@ -560,7 +566,7 @@ export default function Index() {
 
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
-                حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
+                ��ان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
                 المغامرة ويصنع الأ��طورة.
               </p>
             )}
