@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { Instagram, Languages } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface TimeLeft {
   days: number;
@@ -20,6 +31,8 @@ export default function Index() {
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLaunched, setIsLaunched] = useState(false);
+  const [ownerOpen, setOwnerOpen] = useState(false);
+  const [ownerPass, setOwnerPass] = useState("");
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -305,6 +318,74 @@ export default function Index() {
             >
               {isArabic ? "ابدأ الآن 🚀" : "START NOW 🚀"}
             </button>
+
+            {/* Owner button with password dialog */}
+            <Dialog open={ownerOpen} onOpenChange={setOwnerOpen}>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  className="px-6 py-2 rounded-full font-bold text-egypt-gold border border-egypt-gold/60 bg-black/20 hover:bg-black/30 shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  {isArabic ? "المالك" : "THE OWNER"}
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-gradient-to-b from-egypt-black to-black/95 border-egypt-gold/30">
+                <DialogHeader>
+                  <DialogTitle className="bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
+                    {isArabic ? "دخول المالك" : "Owner Access"}
+                  </DialogTitle>
+                  <DialogDescription className="text-egypt-sand/80">
+                    {isArabic ? "أدخل كلمة المرور للمتابعة" : "Enter the password to continue"}
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-3 pt-2">
+                  <Input
+                    type="password"
+                    inputMode="numeric"
+                    placeholder={isArabic ? "كلمة المرور" : "Password"}
+                    value={ownerPass}
+                    onChange={(e) => setOwnerPass(e.target.value)}
+                  />
+                </div>
+                <DialogFooter>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setOwnerOpen(false);
+                      setOwnerPass("");
+                    }}
+                  >
+                    {isArabic ? "إلغاء" : "Cancel"}
+                  </Button>
+                  <Button
+                    className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black"
+                    onClick={() => {
+                      if (ownerPass.trim() === "22") {
+                        toast({
+                          title: (
+                            <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
+                              {isArabic ? "مرحبًا أيها المالك" : "Welcome, Owner"}
+                            </span>
+                          ),
+                          className:
+                            "border-egypt-gold/60 bg-gradient-to-r from-egypt-gold/10 to-egypt-gold-light/10 backdrop-blur-md shadow-2xl",
+                        });
+                        setOwnerOpen(false);
+                        setOwnerPass("");
+                      } else {
+                        toast({
+                          title: isArabic ? "كلمة المرور غير صحيحة" : "Incorrect password",
+                          variant: "destructive",
+                        });
+                      }
+                    }}
+                  >
+                    {isArabic ? "دخول" : "Access"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
                 حان وقت الانطلاق! نسر اللعبة تحرّر الآن — كن أول من يقتحم المغامرة ويصنع الأسطورة.
