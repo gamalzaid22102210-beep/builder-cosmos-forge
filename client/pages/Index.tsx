@@ -17,6 +17,7 @@ export default function Index() {
   });
   const [isArabic, setIsArabic] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLaunched, setIsLaunched] = useState(false);
   const [scrollTaxis, setScrollTaxis] = useState<
     Array<{
       id: number;
@@ -56,6 +57,7 @@ export default function Index() {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
+      setIsLaunched(distance <= 0);
 
       if (distance > 0) {
         setTimeLeft({
@@ -279,6 +281,22 @@ export default function Index() {
             <CountdownBox value={timeLeft.hours} label={labels.hours} />
             <CountdownBox value={timeLeft.minutes} label={labels.minutes} />
             <CountdownBox value={timeLeft.seconds} label={labels.seconds} />
+          </div>
+
+          {/* CTA and motivational text */}
+          <div className="mt-6 flex flex-col items-center space-y-3">
+            <button
+              type="button"
+              aria-label="Start now"
+              className="px-8 py-3 rounded-full font-bold text-egypt-black bg-gradient-to-r from-egypt-gold to-egypt-gold-light shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out border border-egypt-gold/40 focus:outline-none focus:ring-2 focus:ring-egypt-gold/60"
+            >
+              START NOW 🚀
+            </button>
+            {isLaunched && (
+              <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
+                حان وقت الانطلاق! نسر اللعبة تحرّر الآن — كن أول من يقتحم المغامرة ويصنع الأسطورة.
+              </p>
+            )}
           </div>
         </div>
 
