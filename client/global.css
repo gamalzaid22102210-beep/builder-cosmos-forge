@@ -299,11 +299,21 @@
     background-clip: text;
     color: transparent;
     text-shadow:
-      0 0 8px rgba(212, 175, 55, 0.35),
-      0 0 16px rgba(244, 231, 107, 0.25),
-      2px 2px 3px rgba(0, 0, 0, 0.35);
+      0 0 6px rgba(212, 175, 55, 0.25),
+      0 0 12px rgba(244, 231, 107, 0.18),
+      2px 2px 3px rgba(0, 0, 0, 0.3);
     animation:
       letter-reveal 0.6s ease forwards,
-      shine-sweep 2.2s linear infinite;
+      shine-sweep 3s linear infinite;
+  }
+
+  /* Loading progress bar */
+  @keyframes progress-fill {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
   }
 }
