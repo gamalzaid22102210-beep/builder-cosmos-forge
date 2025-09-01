@@ -44,8 +44,10 @@ export default function Index() {
     }>
   >([]);
 
-  const twoDayTargetRef = useRef<number>(Date.now() + 2 * 24 * 60 * 60 * 1000);
+  const preStartUntilRef = useRef<number>(Date.now() + 2 * 24 * 60 * 60 * 1000);
+  const activeEndRef = useRef<number>(preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000);
   const [twoDayLeft, setTwoDayLeft] = useState({ days: 2, hours: 0 });
+  const [twoDayActive, setTwoDayActive] = useState(false);
 
   const targetDate = new Date("2025-09-10T00:00:00").getTime();
 
@@ -198,11 +200,19 @@ export default function Index() {
   useEffect(() => {
     const update = () => {
       const now = Date.now();
-      let diff = twoDayTargetRef.current - now;
-      if (diff < 0) diff = 0;
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      setTwoDayLeft({ days, hours });
+      if (now < preStartUntilRef.current) {
+        setTwoDayActive(false);
+        setTwoDayLeft({ days: 2, hours: 0 });
+      } else if (now < activeEndRef.current) {
+        setTwoDayActive(true);
+        const diff = activeEndRef.current - now;
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        setTwoDayLeft({ days, hours });
+      } else {
+        setTwoDayActive(false);
+        setTwoDayLeft({ days: 0, hours: 0 });
+      }
     };
     update();
     const id = setInterval(update, 60000);
