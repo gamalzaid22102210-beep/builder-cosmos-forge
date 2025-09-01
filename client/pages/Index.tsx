@@ -40,7 +40,6 @@ export default function Index() {
     return () => clearTimeout(loadingTimer);
   }, []);
 
-
   const handleAllowAudio = () => {
     setAudioStarted(true);
     setShowAudioPermission(false);
