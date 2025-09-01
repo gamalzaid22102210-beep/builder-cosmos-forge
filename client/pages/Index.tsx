@@ -114,13 +114,13 @@ export default function Index() {
           if (isMuted) playerRef.current.mute(); else playerRef.current.unMute();
           if (pendingPlayRef.current) {
             try {
-              playerRef.current.unMute();
+              playerRef.current.mute();
               playerRef.current.seekTo(5, true);
               playerRef.current.playVideo();
             } catch {}
             pendingPlayRef.current = false;
             setAudioStarted(true);
-            setIsMuted(false);
+            setIsMuted(true);
           }
         },
       },
@@ -138,12 +138,12 @@ export default function Index() {
     if (!p) return;
     if (!audioStarted) {
       try {
-        p.unMute();
+        p.mute();
         p.seekTo(5, true);
         p.playVideo();
       } catch {}
       setAudioStarted(true);
-      setIsMuted(false);
+      setIsMuted(true);
       pendingPlayRef.current = false;
       return;
     }
@@ -358,9 +358,9 @@ export default function Index() {
       <button
         onClick={toggleAudio}
         className="fixed top-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-        aria-label={isArabic ? (audioStarted ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : "تشغيل") : (audioStarted ? (isMuted ? "Unmute" : "Mute") : "Play")}
+        aria-label={isArabic ? (audioStarted ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : "تشغيل صامت") : (audioStarted ? (isMuted ? "Unmute" : "Mute") : "Play muted")}
       >
-        {audioStarted ? (isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />) : <Volume2 className="w-5 h-5" />}
+        {audioStarted ? (isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />) : <VolumeX className="w-5 h-5" />}
       </button>
 
       {/* Scroll Taxis */}
