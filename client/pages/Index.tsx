@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Instagram, Languages } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface TimeLeft {
   days: number;
@@ -9,6 +10,7 @@ interface TimeLeft {
 }
 
 export default function Index() {
+  const { toast } = useToast();
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -288,6 +290,7 @@ export default function Index() {
             <button
               type="button"
               aria-label={isArabic ? "ابدأ الآن" : "Start now"}
+              onClick={() => toast({ title: "WAIT US ON SEPTEMBER 10🚀🚀" })}
               className="px-8 py-3 rounded-full font-bold text-egypt-black bg-gradient-to-r from-egypt-gold to-egypt-gold-light shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out border border-egypt-gold/40 focus:outline-none focus:ring-2 focus:ring-egypt-gold/60"
             >
               {isArabic ? "ابدأ الآن 🚀" : "START NOW 🚀"}
