@@ -375,6 +375,7 @@ export default function Index() {
                         });
                         setOwnerOpen(false);
                         setOwnerPass("");
+                        navigate("/owner");
                       } else {
                         toast({
                           title: isArabic ? "كلمة المرور غير صحيحة" : "Incorrect password",
