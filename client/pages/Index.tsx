@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Instagram, Languages } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Instagram, Languages, Volume2, VolumeX } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -60,16 +60,62 @@ export default function Index() {
     return () => clearTimeout(loadingTimer);
   }, []);
 
-  const handleAllowAudio = () => {
-    setAudioStarted(true);
-    setShowAudioPermission(false);
+  const [audioStarted, setAudioStarted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const gainRef = useRef<GainNode | null>(null);
+  const oscRef = useRef<OscillatorNode | null>(null);
+
+  const ensureAudio = async () => {
+    if (!audioCtxRef.current) {
+      const AC = (window as any).AudioContext || (window as any).webkitAudioContext;
+      const ctx: AudioContext = new AC();
+      const gain = ctx.createGain();
+      gain.gain.value = 0;
+      gain.connect(ctx.destination);
+      const osc = ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.value = 220;
+      osc.connect(gain);
+      osc.start();
+      audioCtxRef.current = ctx;
+      gainRef.current = gain;
+      oscRef.current = osc;
+    }
+    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
+      await audioCtxRef.current.resume();
+    }
   };
 
-  const handleDenyAudio = () => {
-    setAudioStarted(false);
-    setIsMusicMuted(true);
-    setShowAudioPermission(false);
+  const setGainSmooth = (val: number) => {
+    const ctx = audioCtxRef.current;
+    const gain = gainRef.current?.gain;
+    if (ctx && gain) {
+      gain.cancelScheduledValues(0);
+      gain.linearRampToValueAtTime(val, ctx.currentTime + 0.1);
+    }
   };
+
+  const toggleAudio = async () => {
+    await ensureAudio();
+    if (isMuted) {
+      setGainSmooth(0.15);
+      setAudioStarted(true);
+      setIsMuted(false);
+    } else {
+      setGainSmooth(0);
+      setIsMuted(true);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      try {
+        oscRef.current?.stop();
+        audioCtxRef.current?.close();
+      } catch {}
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -252,6 +298,13 @@ export default function Index() {
         <Languages className="w-5 h-5" />
       </button>
 
+      <button
+        onClick={toggleAudio}
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+        aria-label={isArabic ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : (isMuted ? "Unmute" : "Mute")}>
+        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+      </button>
+
       {/* Scroll Taxis */}
       {scrollTaxis.map((taxi) => (
         <div
@@ -392,7 +445,7 @@ export default function Index() {
 
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
-                حان وقت الانطلاق! نسر اللعبة تحرّر الآن — كن أول من يقتحم المغامرة ويصنع الأسطورة.
+                حان وقت الانطلاق! نسر اللعبة تحرّر الآن — كن أول من يقتحم المغامرة ويصنع الأ��طورة.
               </p>
             )}
           </div>
