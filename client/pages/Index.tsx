@@ -183,6 +183,20 @@ export default function Index() {
             PROGRAMMED BY MARWANZAID
           </div>
 
+          {/* Luxurious shiny word: PABLO */}
+          <div className="mt-3 text-center">
+            <div className="text-5xl md:text-7xl font-extrabold tracking-[0.25em]">
+              {Array.from("PABLO").map((ch, i) => (
+                <span
+                  key={i}
+                  className="shiny-letter"
+                  style={{ animationDelay: `${i * 0.15}s, 0s` }}
+                >
+                  {ch}
+                </span>
+              ))}
+            </div>
+          </div>
 
           {/* Loading dots */}
           <div className="flex justify-center space-x-1 mt-6">
@@ -294,7 +308,7 @@ export default function Index() {
           </p>
           <p className="text-xs md:text-sm text-egypt-sand/60">
             {isArabic
-              ? "© 2025 جميع الحقوق محفوظة"
+              ? "© 2025 جميع الحقوق ��حفوظة"
               : "© 2025 All rights reserved"}
           </p>
         </div>
