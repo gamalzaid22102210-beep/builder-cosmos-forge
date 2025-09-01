@@ -105,28 +105,50 @@ export default function Index() {
         modestbranding: 1,
         playsinline: 1,
         loop: 1,
+        start: 5,
         playlist: videoId,
         origin: window.location.origin,
       },
       events: {
         onReady: () => {
-          if (isMuted) playerRef.current.mute();
-          else playerRef.current.unMute();
+          if (isMuted) playerRef.current.mute(); else playerRef.current.unMute();
+          if (pendingPlayRef.current) {
+            try {
+              playerRef.current.unMute();
+              playerRef.current.seekTo(5, true);
+              playerRef.current.playVideo();
+            } catch {}
+            pendingPlayRef.current = false;
+            setAudioStarted(true);
+            setIsMuted(false);
+          }
         },
       },
     });
   };
 
+  const pendingPlayRef = useRef(false);
+
   const toggleAudio = async () => {
+    if (!apiReady) {
+      pendingPlayRef.current = true;
+    }
     createPlayerIfNeeded();
     const p = playerRef.current;
     if (!p) return;
-    if (isMuted) {
+    if (!audioStarted) {
       try {
         p.unMute();
+        p.seekTo(5, true);
         p.playVideo();
       } catch {}
       setAudioStarted(true);
+      setIsMuted(false);
+      pendingPlayRef.current = false;
+      return;
+    }
+    if (isMuted) {
+      p.unMute();
       setIsMuted(false);
     } else {
       p.mute();
@@ -335,9 +357,10 @@ export default function Index() {
 
       <button
         onClick={toggleAudio}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-        aria-label={isArabic ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : (isMuted ? "Unmute" : "Mute")}>
-        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+        className="fixed top-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+        aria-label={isArabic ? (audioStarted ? (isMuted ? "تشغيل الصوت" : "كتم الصوت") : "تشغيل") : (audioStarted ? (isMuted ? "Unmute" : "Mute") : "Play")}
+      >
+        {audioStarted ? (isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />) : <Volume2 className="w-5 h-5" />}
       </button>
 
       {/* Scroll Taxis */}
