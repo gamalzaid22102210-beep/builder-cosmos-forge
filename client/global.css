@@ -237,6 +237,12 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .animate-taxi-drive {
+      animation: none !important;
+    }
+  }
+
   @keyframes text-glow {
     0%,
     100% {
