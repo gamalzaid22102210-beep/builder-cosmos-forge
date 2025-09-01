@@ -339,7 +339,7 @@ export default function Index() {
       {scrollTaxis.map((taxi) => (
         <div
           key={taxi.id}
-          className={`fixed text-4xl z-40 animate-taxi-fall ${
+          className={`fixed text-4xl z-40 pointer-events-none select-none animate-taxi-fall ${
             taxi.direction === "left"
               ? "animate-taxi-fall-from-left"
               : "animate-taxi-fall-from-right"
@@ -367,7 +367,7 @@ export default function Index() {
           <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent mb-4 tracking-tight">
             EGYPTIAN ADVENTURE
           </h1>
-          <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative">
+          <div className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative pointer-events-none select-none" aria-hidden style={{ willChange: "transform" }}>
             🚕
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-6 tracking-widest animate-fire-text">
