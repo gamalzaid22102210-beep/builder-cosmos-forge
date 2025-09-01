@@ -44,6 +44,9 @@ export default function Index() {
     }>
   >([]);
 
+  const twoDayTargetRef = useRef<number>(Date.now() + 2 * 24 * 60 * 60 * 1000);
+  const [twoDayLeft, setTwoDayLeft] = useState({ days: 2, hours: 0 });
+
   const targetDate = new Date("2025-09-10T00:00:00").getTime();
 
   const toggleLanguage = () => {
@@ -190,6 +193,20 @@ export default function Index() {
     }, 2000);
 
     return () => clearInterval(autoTaxiInterval);
+  }, []);
+
+  useEffect(() => {
+    const update = () => {
+      const now = Date.now();
+      let diff = twoDayTargetRef.current - now;
+      if (diff < 0) diff = 0;
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      setTwoDayLeft({ days, hours });
+    };
+    update();
+    const id = setInterval(update, 60000);
+    return () => clearInterval(id);
   }, []);
 
   const SocialIcon = ({
@@ -404,8 +421,14 @@ export default function Index() {
           >
             🚕
           </div>
-          <div className="text-2xl md:text-4xl font-bold mb-6 tracking-widest animate-fire-text">
+          <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
             WAIT US ON SEPTEMBER 10
+          </div>
+          <div className="text-blue-400 font-bold text-sm md:text-base mb-6">
+            NEW UPDATE IN 2 days
+            <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
+              {twoDayLeft.days}d {twoDayLeft.hours}h
+            </span>
           </div>
         </div>
 
