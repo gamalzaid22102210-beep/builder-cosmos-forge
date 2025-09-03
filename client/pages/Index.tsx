@@ -610,27 +610,26 @@ export default function Index() {
           className={`text-center text-egypt-sand/80 space-y-2 ${isArabic ? "rtl" : "ltr"}`}
         >
           <div className="flex flex-col items-center gap-2">
-            <p className="text-sm md:text-base font-semibold">
-              {isArabic ? (
-                <>
-                  الحقوق محفوظة ل{" "}
-                  <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
-                </>
-              ) : (
-                <>
-                  All rights reserved to{" "}
-                  <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
-                </>
-              )}
-            </p>
-            <div className="flex items-center gap-3 text-egypt-gold">
-              <span className="text-xs md:text-sm font-bold tracking-wider">MARWAN ZAID</span>
+            <div className="flex items-center gap-3">
+              <p className="text-sm md:text-base font-semibold">
+                {isArabic ? (
+                  <>
+                    الحقوق محفوظة ل{" "}
+                    <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+                  </>
+                ) : (
+                  <>
+                    All rights reserved to{" "}
+                    <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+                  </>
+                )}
+              </p>
               <div className="h-[2px] w-24 md:w-48 bg-egypt-gold/40" />
               <a
                 href="https://app.wavecnct.com/marwan.zaid.egsr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs md:text-sm font-bold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4 flex items-center gap-1"
+                className="text-xs md:text-sm font-bold text-egypt-gold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4 flex items-center gap-1"
               >
                 KNOW WHO IS MARWAN ZAID <ArrowRight className="w-4 h-4" />
               </a>
