@@ -310,7 +310,7 @@ export default function Index() {
         <div className="text-center relative z-10">
           {/* Loading spinner */}
           <div className="mb-6">
-            <div className="text-6xl mb-4 animate-bounce">🚕</div>
+            <div className="text-6xl mb-4 animate-bounce"><p>🚕</p></div>
             <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
           </div>
 
