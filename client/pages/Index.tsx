@@ -629,9 +629,9 @@ export default function Index() {
                 href="https://app.wavecnct.com/marwan.zaid.egsr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs md:text-sm font-bold text-egypt-gold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4 flex items-center gap-1"
+                className="text-xs md:text-sm font-bold text-egypt-gold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4"
               >
-                KNOW WHO IS MARWAN ZAID <ArrowRight className="w-4 h-4" />
+                KNOW WHO IS MARWAN ZAID
               </a>
             </div>
           </div>
