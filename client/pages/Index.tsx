@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Instagram, Languages, Volume2, VolumeX } from "lucide-react";
+import { Instagram, Languages, Volume2, VolumeX, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -600,6 +600,21 @@ export default function Index() {
             icon={Instagram}
             label="Instagram"
           />
+        </div>
+
+        <div className="w-full max-w-3xl px-4 mb-8">
+          <div className="flex items-center gap-3 text-egypt-gold">
+            <span className="text-sm font-bold tracking-wider">MARWANZAID</span>
+            <div className="flex-1 h-[2px] bg-egypt-gold/40" />
+            <a
+              href="https://app.wavecnct.com/marwan.zaid.egsr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-bold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4 flex items-center gap-1"
+            >
+              KNOW WHO IS MARWAN ZAID <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
 
