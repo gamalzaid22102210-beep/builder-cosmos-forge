@@ -624,7 +624,7 @@ export default function Index() {
                   </>
                 )}
               </p>
-              <div className="h-[2px] w-24 md:w-48 bg-egypt-gold/40" />
+              <ArrowRight className="w-5 h-5 text-egypt-gold/70" />
               <a
                 href="https://app.wavecnct.com/marwan.zaid.egsr"
                 target="_blank"
