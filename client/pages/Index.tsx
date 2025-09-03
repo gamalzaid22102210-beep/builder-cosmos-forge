@@ -45,8 +45,14 @@ export default function Index() {
   >([]);
 
   const preStartUntilRef = useRef<number>(Date.now());
-  const activeEndRef = useRef<number>(preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000);
-  const [twoDayLeft, setTwoDayLeft] = useState({ days: 2, hours: 0, minutes: 0 });
+  const activeEndRef = useRef<number>(
+    preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000,
+  );
+  const [twoDayLeft, setTwoDayLeft] = useState({
+    days: 2,
+    hours: 0,
+    minutes: 0,
+  });
   const [twoDayActive, setTwoDayActive] = useState(false);
   const [twoDayFinished, setTwoDayFinished] = useState(false);
 
@@ -287,7 +293,9 @@ export default function Index() {
   const forceFinish = searchParams.get("preview") === "twoDayFinished";
   const isFinished = twoDayFinished || forceFinish;
   const isActive = twoDayActive && !forceFinish;
-  const displayTwoDayLeft = forceFinish ? { days: 0, hours: 0, minutes: 0 } : twoDayLeft;
+  const displayTwoDayLeft = forceFinish
+    ? { days: 0, hours: 0, minutes: 0 }
+    : twoDayLeft;
 
   // Loading Screen
   if (isLoading) {
@@ -452,11 +460,17 @@ export default function Index() {
               <>
                 NEW UPDATE IN
                 <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
-                  {displayTwoDayLeft.days}d {displayTwoDayLeft.hours}h {displayTwoDayLeft.minutes}m
+                  {displayTwoDayLeft.days}d {displayTwoDayLeft.hours}h{" "}
+                  {displayTwoDayLeft.minutes}m
                 </span>
               </>
             ) : (
-              <>NEW UPDATE IN 2 days<span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">2d 0h 0m</span></>
+              <>
+                NEW UPDATE IN 2 days
+                <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
+                  2d 0h 0m
+                </span>
+              </>
             )}
           </div>
         </div>
