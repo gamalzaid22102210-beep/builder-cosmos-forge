@@ -44,7 +44,7 @@ export default function Index() {
     }>
   >([]);
 
-  const preStartUntilRef = useRef<number>(Date.now() + 2 * 24 * 60 * 60 * 1000);
+  const preStartUntilRef = useRef<number>(Date.now());
   const activeEndRef = useRef<number>(preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000);
   const [twoDayLeft, setTwoDayLeft] = useState({ days: 2, hours: 0 });
   const [twoDayActive, setTwoDayActive] = useState(false);
@@ -566,7 +566,7 @@ export default function Index() {
 
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
-                ��ان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
+                حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
                 المغامرة ويصنع الأ��طورة.
               </p>
             )}
