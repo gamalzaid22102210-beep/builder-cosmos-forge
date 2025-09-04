@@ -44,7 +44,7 @@ export default function Index() {
     }>
   >([]);
 
-  const twoTargetDate = new Date("2025-09-06T00:00:00").getTime();
+  const twoTargetDate = new Date("2025-09-08T00:00:00").getTime();
   const [twoLeft, setTwoLeft] = useState({ days: 0, hours: 0, minutes: 0 });
   const [twoFinished, setTwoFinished] = useState(false);
 
