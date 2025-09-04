@@ -44,17 +44,9 @@ export default function Index() {
     }>
   >([]);
 
-  const preStartUntilRef = useRef<number>(Date.now());
-  const activeEndRef = useRef<number>(
-    preStartUntilRef.current + 2 * 24 * 60 * 60 * 1000,
-  );
-  const [twoDayLeft, setTwoDayLeft] = useState({
-    days: 2,
-    hours: 0,
-    minutes: 0,
-  });
-  const [twoDayActive, setTwoDayActive] = useState(false);
-  const [twoDayFinished, setTwoDayFinished] = useState(false);
+  const twoTargetDate = new Date("2025-09-06T00:00:00").getTime();
+  const [twoLeft, setTwoLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [twoFinished, setTwoFinished] = useState(false);
 
   const targetDate = new Date("2025-09-10T00:00:00").getTime();
 
