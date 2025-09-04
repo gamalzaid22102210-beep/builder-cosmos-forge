@@ -199,22 +199,16 @@ export default function Index() {
   useEffect(() => {
     const update = () => {
       const now = Date.now();
-      if (now < preStartUntilRef.current) {
-        setTwoDayActive(false);
-        setTwoDayFinished(false);
-        setTwoDayLeft({ days: 2, hours: 0, minutes: 0 });
-      } else if (now < activeEndRef.current) {
-        setTwoDayActive(true);
-        setTwoDayFinished(false);
-        const diff = activeEndRef.current - now;
+      const diff = twoTargetDate - now;
+      if (diff <= 0) {
+        setTwoFinished(true);
+        setTwoLeft({ days: 0, hours: 0, minutes: 0 });
+      } else {
+        setTwoFinished(false);
         const days = Math.floor(diff / 86400000);
         const hours = Math.floor((diff % 86400000) / 3600000);
         const minutes = Math.floor((diff % 3600000) / 60000);
-        setTwoDayLeft({ days, hours, minutes });
-      } else {
-        setTwoDayActive(false);
-        setTwoDayFinished(true);
-        setTwoDayLeft({ days: 0, hours: 0, minutes: 0 });
+        setTwoLeft({ days, hours, minutes });
       }
     };
     update();
@@ -494,7 +488,7 @@ export default function Index() {
               }
               className="px-8 py-3 rounded-full font-bold text-egypt-black bg-gradient-to-r from-egypt-gold to-egypt-gold-light shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out border border-egypt-gold/40 focus:outline-none focus:ring-2 focus:ring-egypt-gold/60"
             >
-              {isArabic ? "ابدأ الآن 🚀" : "START NOW 🚀"}
+              {isArabic ? "ابدأ الآن ���" : "START NOW 🚀"}
             </button>
 
             {/* Owner button with password dialog */}
@@ -574,7 +568,7 @@ export default function Index() {
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
                 حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
-                المغامرة ويصنع الأ��طورة.
+                المغامرة ويصنع الأ����طورة.
               </p>
             )}
           </div>
