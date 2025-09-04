@@ -434,7 +434,7 @@ export default function Index() {
             aria-hidden
             style={{ willChange: "transform" }}
           >
-            🚕
+            <span role="img" aria-label="taxi" style={{ fontFamily: 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}>🚕</span>
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
             WAIT US ON SEPTEMBER 10
