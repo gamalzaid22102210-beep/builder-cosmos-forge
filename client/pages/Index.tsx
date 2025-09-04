@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Instagram, Languages, Volume2, VolumeX, ArrowRight } from "lucide-react";
+import {
+  Instagram,
+  Languages,
+  Volume2,
+  VolumeX,
+  ArrowRight,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
@@ -275,7 +281,6 @@ export default function Index() {
 
   const labels = getCountdownLabels();
 
-
   // Loading Screen
   if (isLoading) {
     return (
@@ -289,7 +294,9 @@ export default function Index() {
         <div className="text-center relative z-10">
           {/* Loading spinner */}
           <div className="mb-6">
-            <div className="text-6xl mb-4 animate-bounce"><p>🚕</p></div>
+            <div className="text-6xl mb-4 animate-bounce">
+              <p>🚕</p>
+            </div>
             <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
           </div>
 
@@ -572,7 +579,6 @@ export default function Index() {
             label="Instagram"
           />
         </div>
-
       </div>
 
       {/* Footer */}
@@ -586,12 +592,16 @@ export default function Index() {
                 {isArabic ? (
                   <>
                     الحقوق محفوظة ل{" "}
-                    <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+                    <span className="text-egypt-gold font-bold">
+                      MARWAN ZAID
+                    </span>
                   </>
                 ) : (
                   <>
                     All rights reserved to{" "}
-                    <span className="text-egypt-gold font-bold">MARWAN ZAID</span>
+                    <span className="text-egypt-gold font-bold">
+                      MARWAN ZAID
+                    </span>
                   </>
                 )}
               </p>
