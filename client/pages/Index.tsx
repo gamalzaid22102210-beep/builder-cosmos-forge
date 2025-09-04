@@ -275,13 +275,6 @@ export default function Index() {
 
   const labels = getCountdownLabels();
 
-  const [searchParams] = useSearchParams();
-  const forceFinish = searchParams.get("preview") === "twoDayFinished";
-  const isFinished = twoDayFinished || forceFinish;
-  const isActive = twoDayActive && !forceFinish;
-  const displayTwoDayLeft = forceFinish
-    ? { days: 0, hours: 0, minutes: 0 }
-    : twoDayLeft;
 
   // Loading Screen
   if (isLoading) {
@@ -411,7 +404,7 @@ export default function Index() {
             top: "-100px",
           }}
         >
-          🚕
+          ��
         </div>
       ))}
 
@@ -488,7 +481,7 @@ export default function Index() {
               }
               className="px-8 py-3 rounded-full font-bold text-egypt-black bg-gradient-to-r from-egypt-gold to-egypt-gold-light shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-out border border-egypt-gold/40 focus:outline-none focus:ring-2 focus:ring-egypt-gold/60"
             >
-              {isArabic ? "ابدأ الآن ���" : "START NOW 🚀"}
+              {isArabic ? "ابدأ الآن 🚀" : "START NOW 🚀"}
             </button>
 
             {/* Owner button with password dialog */}
@@ -568,7 +561,7 @@ export default function Index() {
             {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
                 حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
-                المغامرة ويصنع الأ����طورة.
+                المغامرة ويصنع الأ��طورة.
               </p>
             )}
           </div>
