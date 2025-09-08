@@ -16,7 +16,6 @@ export default function MarwanZaidDetails() {
 
         <div className="space-y-4">
           <div className="flex flex-col items-center gap-2">
-            {/* Links (to be added later) will go here */}
           </div>
         </div>
 
