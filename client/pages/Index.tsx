@@ -625,11 +625,9 @@ export default function Index() {
               </p>
               <ArrowRight className="w-5 h-5 text-egypt-gold/70" />
               <a
-                href="/marwan-zaid"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/marwan-zaid");
-                }}
+                href="https://app.wavecnct.com/marwan.zaid.egsr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs md:text-sm font-bold text-egypt-gold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4"
               >
                 KNOW WHO IS MARWAN ZAID
