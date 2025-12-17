@@ -195,7 +195,9 @@ export default function Index() {
       });
 
       setTimeout(() => {
-        setScrollPlanes((prev) => prev.filter((plane) => plane.id !== newPlane.id));
+        setScrollPlanes((prev) =>
+          prev.filter((plane) => plane.id !== newPlane.id),
+        );
       }, 3000);
     }, 2000);
 
@@ -248,7 +250,9 @@ export default function Index() {
       </a>
       {username && (
         <div className="flex items-center gap-1">
-          <p className="text-egypt-sand text-xs md:text-sm font-semibold">{username}</p>
+          <p className="text-egypt-sand text-xs md:text-sm font-semibold">
+            {username}
+          </p>
           {verified && (
             <svg
               className="w-4 h-4 text-blue-400 animate-pulse"
@@ -389,7 +393,6 @@ export default function Index() {
         onLoad={() => setPlayerReady(true)}
       />
 
-
       {/* Scroll Planes */}
       {scrollPlanes.map((plane) => (
         <div
@@ -472,7 +475,9 @@ export default function Index() {
                 toast({
                   title: (
                     <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
-                      {isArabic ? "بعد انتهاء الثانوية العاملة 🚀🚀" : "after finishing 3rd secondary school 🚀🚀"}
+                      {isArabic
+                        ? "بعد انتهاء الثانوية العاملة 🚀🚀"
+                        : "after finishing 3rd secondary school 🚀🚀"}
                     </span>
                   ),
                   className:
@@ -557,7 +562,6 @@ export default function Index() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-
           </div>
         </div>
 
