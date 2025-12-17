@@ -457,18 +457,6 @@ export default function Index() {
           <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
             after finishing 3rd secondary school
           </div>
-          <div className="text-blue-400 font-bold text-sm md:text-base mb-6">
-            {twoFinished ? (
-              <span className="text-blue-400">very soon</span>
-            ) : (
-              <>
-                NEW UPDATE IN
-                <span className="ml-2 text-[10px] md:text-xs font-mono bg-blue-500/10 border border-blue-400/30 rounded px-2 py-0.5">
-                  {twoLeft.days}d {twoLeft.hours}h {twoLeft.minutes}m
-                </span>
-              </>
-            )}
-          </div>
         </div>
 
         {/* Countdown Timer */}
