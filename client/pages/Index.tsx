@@ -369,33 +369,6 @@ export default function Index() {
         onLoad={() => setPlayerReady(true)}
       />
 
-      <button
-        onClick={toggleAudio}
-        className="fixed top-6 left-6 z-50 bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black p-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-        aria-label={
-          isArabic
-            ? audioStarted
-              ? isMuted
-                ? "تشغيل الصوت"
-                : "كتم الصوت"
-              : "تشغيل صامت"
-            : audioStarted
-              ? isMuted
-                ? "Unmute"
-                : "Mute"
-              : "Play muted"
-        }
-      >
-        {audioStarted ? (
-          isMuted ? (
-            <VolumeX className="w-5 h-5" />
-          ) : (
-            <Volume2 className="w-5 h-5" />
-          )
-        ) : (
-          <VolumeX className="w-5 h-5" />
-        )}
-      </button>
 
       {/* Scroll Taxis */}
       {scrollTaxis.map((taxi) => (
@@ -496,7 +469,7 @@ export default function Index() {
                   type="button"
                   className="px-6 py-2 rounded-full font-bold text-egypt-gold border border-egypt-gold/60 bg-black/20 hover:bg-black/30 shadow-md hover:shadow-lg transition-all duration-300"
                 >
-                  {isArabic ? "المالك" : "THE OWNER"}
+                  {isArabic ? "PILOT" : "PILOT"}
                 </button>
               </DialogTrigger>
               <DialogContent className="bg-gradient-to-b from-egypt-black to-black/95 border-egypt-gold/30">
