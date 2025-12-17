@@ -569,12 +569,12 @@ export default function Index() {
         {/* Social Media Links */}
         <div className="flex space-x-6 mb-16">
           <SocialIcon
-            href="https://www.tiktok.com/@marwanzaid_pablo"
+            href="https://www.tiktok.com/@marwanzaid__"
             icon={TikTokIcon}
             label="TikTok"
           />
           <SocialIcon
-            href="https://www.instagram.com/marwanzaid_pablo"
+            href="https://www.instagram.com/marwanzaid__"
             icon={Instagram}
             label="Instagram"
           />
@@ -605,13 +605,6 @@ export default function Index() {
                   </>
                 )}
               </p>
-              <ArrowRight className="w-5 h-5 text-egypt-gold/70" />
-              <Link
-                to="/marwan-zaid"
-                className="text-xs md:text-sm font-bold text-egypt-gold hover:text-egypt-gold-light underline decoration-egypt-gold/50 decoration-2 underline-offset-4"
-              >
-                KNOW WHO IS MARWAN ZAID
-              </Link>
             </div>
           </div>
           <p className="text-sm md:text-base">
