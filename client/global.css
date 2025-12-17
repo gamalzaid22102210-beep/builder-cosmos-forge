@@ -126,7 +126,7 @@
     animation: fade-in 1s ease-out;
   }
 
-  @keyframes taxi-drive {
+  @keyframes plane-drive {
     0% {
       transform: translateX(120vw) translateY(0px) rotate(0deg);
     }
@@ -156,12 +156,12 @@
     }
   }
 
-  .animate-taxi-drive {
-    animation: taxi-drive 4s linear infinite;
+  .animate-plane-drive {
+    animation: plane-drive 4s linear infinite;
     animation-delay: 1s;
   }
 
-  @keyframes taxi-fall-from-left {
+  @keyframes plane-fall-from-left {
     0% {
       transform: translateY(-100px) translateX(0px) rotate(45deg);
       opacity: 0;
@@ -178,7 +178,7 @@
     }
   }
 
-  @keyframes taxi-fall-from-right {
+  @keyframes plane-fall-from-right {
     0% {
       transform: translateY(-100px) translateX(0px) rotate(-45deg);
       opacity: 0;
@@ -195,15 +195,15 @@
     }
   }
 
-  .animate-taxi-fall-from-left {
-    animation: taxi-fall-from-left 3s ease-in forwards;
+  .animate-plane-fall-from-left {
+    animation: plane-fall-from-left 3s ease-in forwards;
   }
 
-  .animate-taxi-fall-from-right {
-    animation: taxi-fall-from-right 3s ease-in forwards;
+  .animate-plane-fall-from-right {
+    animation: plane-fall-from-right 3s ease-in forwards;
   }
 
-  @keyframes taxi-drive-mobile {
+  @keyframes plane-drive-mobile {
     0% {
       transform: translateX(150vw) translateY(0px) scale(0.8);
     }
@@ -231,14 +231,14 @@
   }
 
   @media (max-width: 768px) {
-    .animate-taxi-drive {
-      animation: taxi-drive-mobile 3s linear infinite;
+    .animate-plane-drive {
+      animation: plane-drive-mobile 3s linear infinite;
       animation-delay: 1s;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-taxi-drive {
+    .animate-plane-drive {
       animation: none !important;
     }
   }
