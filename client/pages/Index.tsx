@@ -54,7 +54,7 @@ export default function Index() {
   const [twoLeft, setTwoLeft] = useState({ days: 0, hours: 0, minutes: 0 });
   const [twoFinished, setTwoFinished] = useState(false);
 
-  const targetDate = new Date("2025-09-10T00:00:00").getTime();
+  const targetDate = new Date("2026-06-20T00:00:00").getTime();
 
   const toggleLanguage = () => {
     setIsArabic(!isArabic);
