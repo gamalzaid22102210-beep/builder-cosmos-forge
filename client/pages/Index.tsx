@@ -563,12 +563,10 @@ export default function Index() {
               </DialogContent>
             </Dialog>
 
-            {isLaunched && (
               <p className="text-egypt-sand text-center text-base md:text-lg font-semibold max-w-2xl">
                 حان وقت الانطلاق! نسر اللعبة تحرّر الآن ��� كن أول من يقتحم
                 المغامرة ويصنع الأ��طورة.
               </p>
-            )}
           </div>
         </div>
 
