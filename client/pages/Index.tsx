@@ -565,11 +565,14 @@ export default function Index() {
             href="https://www.tiktok.com/@marwanzaid__"
             icon={TikTokIcon}
             label="TikTok"
+            username="marwanzaid__"
           />
           <SocialIcon
             href="https://www.instagram.com/marwanzaid__"
             icon={Instagram}
             label="Instagram"
+            username="marwanzaid__"
+            verified={true}
           />
         </div>
       </div>
