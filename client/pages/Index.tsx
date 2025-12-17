@@ -226,21 +226,41 @@ export default function Index() {
     href,
     icon: Icon,
     label,
+    username,
+    verified,
   }: {
     href: string;
     icon: any;
     label: string;
+    username?: string;
+    verified?: boolean;
   }) => (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative p-4 bg-gradient-to-r from-egypt-gold to-egypt-gold-light rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
-      aria-label={label}
-    >
-      <Icon className="w-6 h-6 text-egypt-black group-hover:text-white transition-colors duration-300" />
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-egypt-gold-dark to-egypt-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </a>
+    <div className="flex flex-col items-center gap-2">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative p-4 bg-gradient-to-r from-egypt-gold to-egypt-gold-light rounded-full shadow-lg hover:shadow-2xl transform hover:scale-110 transition-all duration-300 ease-out"
+        aria-label={label}
+      >
+        <Icon className="w-6 h-6 text-egypt-black group-hover:text-white transition-colors duration-300" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-egypt-gold-dark to-egypt-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </a>
+      {username && (
+        <div className="flex items-center gap-1">
+          <p className="text-egypt-sand text-xs md:text-sm font-semibold">{username}</p>
+          {verified && (
+            <svg
+              className="w-4 h-4 text-blue-400 animate-pulse"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+            </svg>
+          )}
+        </div>
+      )}
+    </div>
   );
 
   const TikTokIcon = ({ className }: { className?: string }) => (
