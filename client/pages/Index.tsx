@@ -469,7 +469,7 @@ export default function Index() {
                   type="button"
                   className="px-6 py-2 rounded-full font-bold text-egypt-gold border border-egypt-gold/60 bg-black/20 hover:bg-black/30 shadow-md hover:shadow-lg transition-all duration-300"
                 >
-                  {isArabic ? "PILOT" : "PILOT"}
+                  {isArabic ? "المالك" : "THE OWNER"}
                 </button>
               </DialogTrigger>
               <DialogContent className="bg-gradient-to-b from-egypt-black to-black/95 border-egypt-gold/30">
@@ -505,7 +505,7 @@ export default function Index() {
                   <Button
                     className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black"
                     onClick={() => {
-                      if (ownerPass.trim() === "22") {
+                      if (ownerPass.trim() === "pilot") {
                         toast({
                           title: (
                             <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
