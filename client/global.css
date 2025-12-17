@@ -142,7 +142,7 @@
 
   @keyframes plane-fall-from-left {
     0% {
-      transform: translateY(100vh) translateX(0px) rotate(-45deg);
+      transform: translateY(100vh) translateX(0px) rotate(0deg);
       opacity: 0;
     }
     10% {
@@ -152,14 +152,14 @@
       opacity: 1;
     }
     100% {
-      transform: translateY(-100px) translateX(30px) rotate(-45deg);
+      transform: translateY(-100px) translateX(30px) rotate(0deg);
       opacity: 0;
     }
   }
 
   @keyframes plane-fall-from-right {
     0% {
-      transform: translateY(100vh) translateX(0px) rotate(45deg);
+      transform: translateY(100vh) translateX(0px) rotate(0deg);
       opacity: 0;
     }
     10% {
@@ -169,7 +169,7 @@
       opacity: 1;
     }
     100% {
-      transform: translateY(-100px) translateX(-30px) rotate(45deg);
+      transform: translateY(-100px) translateX(-30px) rotate(0deg);
       opacity: 0;
     }
   }
