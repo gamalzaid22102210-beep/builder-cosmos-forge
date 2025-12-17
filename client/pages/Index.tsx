@@ -455,7 +455,7 @@ export default function Index() {
             </span>
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
-            WAIT US ON SEPTEMBER 10
+            after finishing 3rd secondary school
           </div>
           <div className="text-blue-400 font-bold text-sm md:text-base mb-6">
             {twoFinished ? (
