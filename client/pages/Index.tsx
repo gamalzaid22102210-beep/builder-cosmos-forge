@@ -42,7 +42,7 @@ export default function Index() {
   const [isLaunched, setIsLaunched] = useState(false);
   const [ownerOpen, setOwnerOpen] = useState(false);
   const [ownerPass, setOwnerPass] = useState("");
-  const [scrollTaxis, setScrollTaxis] = useState<
+  const [scrollPlanes, setScrollPlanes] = useState<
     Array<{
       id: number;
       direction: "left" | "right";
@@ -170,36 +170,36 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Automatic taxi drop every 2 seconds with cap and respects reduced motion
+  // Automatic plane drop every 2 seconds with cap and respects reduced motion
   useEffect(() => {
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mql.matches) return;
 
-    let taxiCounter = 0;
+    let planeCounter = 0;
 
-    const autoTaxiInterval = setInterval(() => {
+    const autoPlaneInterval = setInterval(() => {
       const direction: "left" | "right" =
-        taxiCounter % 2 === 0 ? "right" : "left";
-      taxiCounter++;
+        planeCounter % 2 === 0 ? "right" : "left";
+      planeCounter++;
 
-      const newTaxi = {
+      const newPlane = {
         id: Date.now() + Math.random(),
         direction,
         timestamp: Date.now(),
       };
 
-      setScrollTaxis((prev) => {
-        const next = [...prev, newTaxi];
+      setScrollPlanes((prev) => {
+        const next = [...prev, newPlane];
         if (next.length > 6) next.shift();
         return next;
       });
 
       setTimeout(() => {
-        setScrollTaxis((prev) => prev.filter((taxi) => taxi.id !== newTaxi.id));
+        setScrollPlanes((prev) => prev.filter((plane) => plane.id !== newPlane.id));
       }, 3000);
     }, 2000);
 
-    return () => clearInterval(autoTaxiInterval);
+    return () => clearInterval(autoPlaneInterval);
   }, []);
 
   useEffect(() => {
@@ -390,29 +390,29 @@ export default function Index() {
       />
 
 
-      {/* Scroll Taxis */}
-      {scrollTaxis.map((taxi) => (
+      {/* Scroll Planes */}
+      {scrollPlanes.map((plane) => (
         <div
-          key={taxi.id}
-          className={`fixed text-4xl z-40 pointer-events-none select-none animate-taxi-fall ${
-            taxi.direction === "left"
-              ? "animate-taxi-fall-from-left"
-              : "animate-taxi-fall-from-right"
+          key={plane.id}
+          className={`fixed text-4xl z-40 pointer-events-none select-none animate-plane-fall ${
+            plane.direction === "left"
+              ? "animate-plane-fall-from-left"
+              : "animate-plane-fall-from-right"
           }`}
           style={{
-            left: taxi.direction === "left" ? "10%" : "85%",
+            left: plane.direction === "left" ? "10%" : "85%",
             top: "-100px",
           }}
         >
           <span
             role="img"
-            aria-label="taxi"
+            aria-label="plane"
             style={{
               fontFamily:
                 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
             }}
           >
-            🚕
+            ✈️
           </span>
         </div>
       ))}
@@ -432,19 +432,19 @@ export default function Index() {
             EGYPTIAN ADVENTURE
           </h1>
           <div
-            className="text-6xl md:text-8xl mb-8 animate-taxi-drive relative pointer-events-none select-none"
+            className="text-6xl md:text-8xl mb-8 animate-plane-drive relative pointer-events-none select-none"
             aria-hidden
             style={{ willChange: "transform" }}
           >
             <span
               role="img"
-              aria-label="taxi"
+              aria-label="plane"
               style={{
                 fontFamily:
                   'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
               }}
             >
-              🚕
+              ✈️
             </span>
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
