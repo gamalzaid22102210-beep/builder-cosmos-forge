@@ -505,7 +505,7 @@ export default function Index() {
                   <Button
                     className="bg-gradient-to-r from-egypt-gold to-egypt-gold-light text-egypt-black"
                     onClick={() => {
-                      if (ownerPass.trim() === "pilot") {
+                      if (ownerPass.trim() === "22") {
                         toast({
                           title: (
                             <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
