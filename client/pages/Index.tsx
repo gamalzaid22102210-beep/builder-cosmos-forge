@@ -477,7 +477,7 @@ export default function Index() {
                 toast({
                   title: (
                     <span className="font-extrabold tracking-wider bg-gradient-to-r from-egypt-gold via-egypt-gold-light to-egypt-gold bg-clip-text text-transparent">
-                      WAIT US ON SEPTEMBER 10🚀🚀
+                      {isArabic ? "بعد انتهاء الثانوية العاملة 🚀🚀" : "after finishing 3rd secondary school 🚀🚀"}
                     </span>
                   ),
                   className:
