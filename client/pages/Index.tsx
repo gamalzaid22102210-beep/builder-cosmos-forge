@@ -42,13 +42,6 @@ export default function Index() {
   const [isLaunched, setIsLaunched] = useState(false);
   const [ownerOpen, setOwnerOpen] = useState(false);
   const [ownerPass, setOwnerPass] = useState("");
-  const [scrollPlanes, setScrollPlanes] = useState<
-    Array<{
-      id: number;
-      direction: "left" | "right";
-      timestamp: number;
-    }>
-  >([]);
 
   const twoTargetDate = new Date("2025-09-08T00:00:00").getTime();
   const [twoLeft, setTwoLeft] = useState({ days: 0, hours: 0, minutes: 0 });
@@ -170,39 +163,6 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Automatic plane drop every 2 seconds with cap and respects reduced motion
-  useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mql.matches) return;
-
-    let planeCounter = 0;
-
-    const autoPlaneInterval = setInterval(() => {
-      const direction: "left" | "right" =
-        planeCounter % 2 === 0 ? "right" : "left";
-      planeCounter++;
-
-      const newPlane = {
-        id: Date.now() + Math.random(),
-        direction,
-        timestamp: Date.now(),
-      };
-
-      setScrollPlanes((prev) => {
-        const next = [...prev, newPlane];
-        if (next.length > 6) next.shift();
-        return next;
-      });
-
-      setTimeout(() => {
-        setScrollPlanes((prev) =>
-          prev.filter((plane) => plane.id !== newPlane.id),
-        );
-      }, 3000);
-    }, 2000);
-
-    return () => clearInterval(autoPlaneInterval);
-  }, []);
 
   useEffect(() => {
     const update = () => {
