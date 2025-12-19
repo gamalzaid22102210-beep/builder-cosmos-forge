@@ -322,4 +322,41 @@
   .animate-smoke {
     animation: smoke-rise 10s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
+
+  /* Gentle smoke drift animation */
+  @keyframes smoke-drift {
+    0% {
+      opacity: 0;
+      transform: translateX(0px) translateY(0px) scale(0.8);
+      filter: blur(8px);
+    }
+    25% {
+      opacity: 0.6;
+      transform: translateX(30px) translateY(-10px) scale(1);
+      filter: blur(12px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(20px) translateY(-30px) scale(1.2);
+      filter: blur(14px);
+    }
+    75% {
+      opacity: 0.3;
+      transform: translateX(-20px) translateY(-20px) scale(1.1);
+      filter: blur(16px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-40px) translateY(10px) scale(0.8);
+      filter: blur(18px);
+    }
+  }
+
+  .animate-smoke-drift {
+    animation: smoke-drift 8s ease-in-out infinite;
+  }
+
+  .animate-smoke-drift-delayed {
+    animation: smoke-drift 10s ease-in-out infinite 2s;
+  }
 }
