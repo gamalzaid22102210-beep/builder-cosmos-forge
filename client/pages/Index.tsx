@@ -403,34 +403,6 @@ export default function Index() {
         onLoad={() => setPlayerReady(true)}
       />
 
-      {/* Scroll Planes */}
-      {scrollPlanes.map((plane) => (
-        <div
-          key={plane.id}
-          className={`fixed text-4xl z-40 pointer-events-none select-none animate-plane-fall ${
-            plane.direction === "left"
-              ? "animate-plane-fall-from-left"
-              : "animate-plane-fall-from-right"
-          }`}
-          style={{
-            left: plane.direction === "left" ? "10%" : "85%",
-            top: "-100px",
-          }}
-        >
-          <span
-            role="img"
-            aria-label="plane"
-            style={{
-              fontFamily:
-                'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
-              transform: "rotate(-90deg)",
-              display: "inline-block",
-            }}
-          >
-            ✈️
-          </span>
-        </div>
-      ))}
 
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
@@ -447,9 +419,12 @@ export default function Index() {
             EGYPTIAN ADVENTURE
           </h1>
           <div
-            className="text-6xl md:text-8xl mb-8 animate-plane-drive relative pointer-events-none select-none"
+            className="text-9xl mb-8 animate-pulse relative pointer-events-none select-none drop-shadow-2xl"
             aria-hidden
-            style={{ willChange: "transform" }}
+            style={{
+              willChange: "transform",
+              filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))"
+            }}
           >
             <span
               role="img"
@@ -457,6 +432,7 @@ export default function Index() {
               style={{
                 fontFamily:
                   'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+                textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
               }}
             >
               ✈️
