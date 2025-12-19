@@ -317,11 +317,40 @@ export default function Index() {
 
         <div className="text-center relative z-10">
           {/* Loading spinner */}
-          <div className="mb-6">
-            <div className="text-6xl mb-4 animate-bounce">
-              <p>✈️</p>
+          <div className="mb-6 relative h-96 flex items-end justify-center">
+            {/* Smoke trail */}
+            <div className="absolute animate-smoke opacity-60">
+              <div className="text-9xl">
+                <span
+                  role="img"
+                  aria-label="smoke"
+                  style={{
+                    fontFamily:
+                      'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+                    filter: "hue-rotate(0deg) saturate(0.3)",
+                  }}
+                >
+                  💨
+                </span>
+              </div>
             </div>
-            <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
+
+            {/* Big fancy plane taking off */}
+            <div className="absolute animate-plane-takeoff">
+              <div className="text-9xl drop-shadow-2xl" style={{ filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))" }}>
+                <span
+                  role="img"
+                  aria-label="plane"
+                  style={{
+                    fontFamily:
+                      'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+                    textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
+                  }}
+                >
+                  ✈️
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Progress bar */}
