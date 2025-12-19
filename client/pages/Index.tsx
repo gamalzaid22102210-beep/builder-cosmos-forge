@@ -60,7 +60,7 @@ export default function Index() {
     setIsArabic(!isArabic);
   };
 
-  const LOADING_DURATION = 1500;
+  const LOADING_DURATION = 10000;
   // Loading screen effect
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
@@ -319,7 +319,7 @@ export default function Index() {
           {/* Loading spinner */}
           <div className="mb-6">
             <div className="text-6xl mb-4 animate-bounce">
-              <p>🚕</p>
+              <p>✈️</p>
             </div>
             <div className="w-16 h-16 border-4 border-egypt-gold/30 border-t-egypt-gold rounded-full animate-spin mx-auto"></div>
           </div>
