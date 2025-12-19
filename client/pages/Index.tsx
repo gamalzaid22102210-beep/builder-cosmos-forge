@@ -379,24 +379,39 @@ export default function Index() {
             EGYPTIAN ADVENTURE
           </h1>
           <div
-            className="text-9xl mb-8 animate-pulse relative pointer-events-none select-none drop-shadow-2xl"
+            className="relative mb-8 h-32 flex items-center justify-center"
             aria-hidden
-            style={{
-              willChange: "transform",
-              filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))"
-            }}
           >
-            <span
-              role="img"
-              aria-label="plane"
+            {/* Smoke drift - first cloud */}
+            <div className="absolute text-7xl opacity-40 animate-smoke-drift" style={{ fontFamily: 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}>
+              💨
+            </div>
+
+            {/* Smoke drift - second cloud with delay */}
+            <div className="absolute text-6xl opacity-35 animate-smoke-drift-delayed" style={{ fontFamily: 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}>
+              💨
+            </div>
+
+            {/* Main plane */}
+            <div
+              className="text-9xl animate-pulse relative pointer-events-none select-none drop-shadow-2xl z-10"
               style={{
-                fontFamily:
-                  'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
-                textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
+                willChange: "transform",
+                filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))"
               }}
             >
-              ✈️
-            </span>
+              <span
+                role="img"
+                aria-label="plane"
+                style={{
+                  fontFamily:
+                    'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+                  textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
+                }}
+              >
+                ✈️
+              </span>
+            </div>
           </div>
           <div className="text-2xl md:text-4xl font-bold mb-2 tracking-widest animate-fire-text">
             after finishing 3rd secondary school
