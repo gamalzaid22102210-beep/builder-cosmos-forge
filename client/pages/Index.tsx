@@ -163,7 +163,6 @@ export default function Index() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-
   useEffect(() => {
     const update = () => {
       const now = Date.now();
@@ -279,14 +278,20 @@ export default function Index() {
           {/* Loading spinner */}
           <div className="mb-6 relative h-64 flex items-center justify-center">
             {/* Big fancy plane fixed in place */}
-            <div className="text-9xl drop-shadow-2xl animate-pulse" style={{ filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))" }}>
+            <div
+              className="text-9xl drop-shadow-2xl animate-pulse"
+              style={{
+                filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))",
+              }}
+            >
               <span
                 role="img"
                 aria-label="plane"
                 style={{
                   fontFamily:
                     'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
-                  textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
+                  textShadow:
+                    "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
                 }}
               >
                 ✈️
@@ -363,7 +368,6 @@ export default function Index() {
         onLoad={() => setPlayerReady(true)}
       />
 
-
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 bg-egypt-gold rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -383,12 +387,24 @@ export default function Index() {
             aria-hidden
           >
             {/* Smoke drift - first cloud */}
-            <div className="absolute text-7xl opacity-40 animate-smoke-drift" style={{ fontFamily: 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}>
+            <div
+              className="absolute text-7xl opacity-40 animate-smoke-drift"
+              style={{
+                fontFamily:
+                  'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+              }}
+            >
               💨
             </div>
 
             {/* Smoke drift - second cloud with delay */}
-            <div className="absolute text-6xl opacity-35 animate-smoke-drift-delayed" style={{ fontFamily: 'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}>
+            <div
+              className="absolute text-6xl opacity-35 animate-smoke-drift-delayed"
+              style={{
+                fontFamily:
+                  'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+              }}
+            >
               💨
             </div>
 
@@ -397,7 +413,7 @@ export default function Index() {
               className="text-9xl animate-pulse relative pointer-events-none select-none drop-shadow-2xl z-10"
               style={{
                 willChange: "transform",
-                filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))"
+                filter: "drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))",
               }}
             >
               <span
@@ -406,7 +422,8 @@ export default function Index() {
                 style={{
                   fontFamily:
                     'Apple Color Emoji, "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
-                  textShadow: "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
+                  textShadow:
+                    "0 0 20px rgba(212, 175, 55, 0.5), 0 10px 30px rgba(0, 0, 0, 0.7)",
                 }}
               >
                 ✈️
